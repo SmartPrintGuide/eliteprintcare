@@ -1,0 +1,315 @@
+
+import axios from 'axios';
+import { fetchCartFromBackend, clearCart } from './cartActions';
+import {
+    USER_LOGIN_REQUEST,
+    USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAIL,
+    USER_LOGOUT,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS,
+    USER_REGISTER_FAIL,
+    USER_SEND_OTP_REQUEST,
+    USER_SEND_OTP_SUCCESS,
+    USER_SEND_OTP_FAIL,
+    USER_VERIFY_OTP_REQUEST,
+    USER_VERIFY_OTP_SUCCESS,
+    USER_VERIFY_OTP_FAIL,
+    USER_FORGOT_PASSWORD_REQUEST,
+    USER_FORGOT_PASSWORD_SUCCESS,
+    USER_FORGOT_PASSWORD_FAIL,
+    USER_RESET_PASSWORD_REQUEST,
+    USER_RESET_PASSWORD_SUCCESS,
+    USER_RESET_PASSWORD_FAIL,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL,
+    USER_DETAILS_RESET,
+    USER_UPDATE_PROFILE_REQUEST,
+    USER_UPDATE_PROFILE_SUCCESS,
+    USER_UPDATE_PROFILE_FAIL,
+} from '../constants/userConstants';
+
+// FIX: Wrap login action in a function declaration
+export const login = (email, password, isAdminLogin = false) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_LOGIN_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/auth/login`,
+            { email, password, isAdminLogin },
+            config
+        );
+
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data,
+        });
+
+        localStorage.setItem('userInfo', JSON.stringify(data));
+
+        // Fetch cart from backend after login
+        await dispatch(fetchCartFromBackend());
+    } catch (error) {
+        dispatch({
+            type: USER_LOGIN_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const logout = () => async (dispatch) => {
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('cartItems');
+    dispatch({ type: USER_LOGOUT });
+    dispatch({ type: USER_DETAILS_RESET });
+    await dispatch(clearCart());
+};
+
+export const register = (firstName, lastName, email, password) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_REGISTER_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/auth/register`,
+            { firstName, lastName, email, password },
+            config
+        );
+
+        dispatch({
+            type: USER_REGISTER_SUCCESS,
+            payload: data,
+        });
+
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data,
+        });
+
+        localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+        dispatch({
+            type: USER_REGISTER_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const sendRegistrationOTP = (firstName, lastName, email, password) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_SEND_OTP_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/auth/send-registration-otp`,
+            { firstName, lastName, email, password },
+            config
+        );
+
+        dispatch({
+            type: USER_SEND_OTP_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: USER_SEND_OTP_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const verifyRegistrationOTP = (email, otp) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_VERIFY_OTP_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/auth/verify-registration-otp`,
+            { email, otp },
+            config
+        );
+
+        dispatch({
+            type: USER_VERIFY_OTP_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: USER_VERIFY_OTP_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_FORGOT_PASSWORD_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/auth/forgot-password`,
+            { email },
+            config
+        );
+
+        dispatch({
+            type: USER_FORGOT_PASSWORD_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: USER_FORGOT_PASSWORD_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const resetPassword = (email, otp, newPassword) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_RESET_PASSWORD_REQUEST });
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/auth/reset-password`,
+            { email, otp, newPassword },
+            config
+        );
+
+        dispatch({
+            type: USER_RESET_PASSWORD_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: USER_RESET_PASSWORD_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USER_DETAILS_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        if (!userInfo || !userInfo.token) {
+            throw new Error('Not authorized. Please log in.');
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const { data } = await axios.get(`/api/auth/profile`, config);
+
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: USER_DETAILS_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        if (!userInfo || !userInfo.token) {
+            throw new Error('Not authorized. Please log in.');
+        }
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const { data } = await axios.put(`/api/auth/profile`, user, config);
+
+        dispatch({
+            type: USER_UPDATE_PROFILE_SUCCESS,
+            payload: data,
+        });
+
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data,
+        });
+
+        localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+        dispatch({
+            type: USER_UPDATE_PROFILE_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};

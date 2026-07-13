@@ -1,0 +1,29 @@
+/* Copied from frontend/src/index.css (Tailwind directives kept) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Poppins Fallback';
+  src: local('Arial');
+  ascent-override: 93%;
+  descent-override: 25%;
+  line-gap-override: 9%;
+  size-adjust: 107%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 10%;
+  size-adjust: 107%;
+}
+
+body { font-family: 'Poppins', 'Poppins Fallback', sans-serif; }
+
+.clearfix::after { content: ""; display: table; clear: both; }
+
+.hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
