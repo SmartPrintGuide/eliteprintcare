@@ -6,7 +6,7 @@ const PrivacyPolicy = () => (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">PRIVACY POLICY</h1>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: February 18, 2026</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Privacy Policy describes how Elite Print Care ("Company," "we," "our," or "us") collects, uses, discloses, safeguards, and processes personal information when you access or use: www.eliteprintcare.com ("Website").<br/>By accessing or using this Website, you acknowledge that you have read and understood this Privacy Policy.</p>
       </div>
       <div className="space-y-10">

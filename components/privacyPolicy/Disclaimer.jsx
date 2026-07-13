@@ -6,7 +6,7 @@ const Disclaimer = () => (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">DISCLAIMER</h1>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: February 18, 2026</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Disclaimer applies to your use of the website located at:<br/><span className="text-blue-700">www.eliteprintcare.com</span> ("Website")</p>
         <p className="mt-2 text-gray-600 leading-relaxed">The Website is operated by Elite Print Care ("Company," "we," "our," or "us").<br/>By accessing or using this Website, you acknowledge and agree to the statements set forth in this Disclaimer.</p>
       </div>

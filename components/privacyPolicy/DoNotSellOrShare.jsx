@@ -5,7 +5,7 @@ const DoNotSellOrShare = () => (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">DO NOT SELL OR SHARE MY PERSONAL INFORMATION</h1>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: February 18, 2026</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This page explains your rights under the California Consumer Privacy Act (CCPA), as amended by the California Privacy Rights Act (CPRA), and how to exercise those rights with respect to:<br/><span className='text-blue-700'>www.eliteprintcare.com</span> ("Website")</p>
         <p className="mt-2 text-gray-600 leading-relaxed">The Website is operated by Elite Print Care ("Company," "we," "our," or "us").</p>
       </div>

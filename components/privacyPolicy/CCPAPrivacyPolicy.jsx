@@ -11,7 +11,7 @@ const CCPAPrivacyPolicy = () => {
             Do Not Sell or Share My Personal Information (CCPA/CPRA) — Elite Print Care
           </h1>
           <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">
-            Last Updated: January 31, 2026
+            Last Updated: July 14, 2026
           </p>
           <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">
             This page is provided in accordance with the California Consumer Privacy Act (CCPA) and the California Privacy Rights Act (CPRA). These laws give California residents specific rights regarding their personal information, including the right to opt out of its sale or sharing. Elite Print Care does not sell or share personal information for monetary or marketing purposes, but this page ensures full transparency and allows you to exercise your privacy rights if desired.
