@@ -305,7 +305,7 @@ const ProfilePage = () => {
                                                             </td>
                                                             <td className="py-4 text-right">
                                                                 <Link
-                                                                    to={`/order/${order._id}`}
+                                                                    href={`/order/${order._id}`}
                                                                     className="inline-flex items-center gap-1 text-lg font-extrabold text-blue-600 hover:text-blue-700 transition-colors"
                                                                 >
                                                                     Details

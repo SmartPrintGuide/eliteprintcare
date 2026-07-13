@@ -71,10 +71,20 @@ export async function POST(request) {
 
   const orderItems = await Promise.all(
     cartItems.map(async (item) => {
-      const product = await Product.findById(item.product);
+      const productId = item.product || item._id || item.productId || null;
+      let product = null;
+      if (productId) {
+        product = await Product.findById(productId);
+      } else if (item.slug) {
+        product = await Product.findOne({ slug: item.slug });
+      }
+
       return {
-        ...item,
-        product: product?._id,
+        name: item.name || item.title || product?.name || product?.title || 'Unnamed Product',
+        qty: item.qty || item.quantity || 1,
+        image: item.image || item.images?.[0] || '',
+        price: item.price ?? item.unitPrice ?? 0,
+        product: product?._id || productId,
       };
     })
   );

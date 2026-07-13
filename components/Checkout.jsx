@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -23,12 +25,14 @@ const Checkout = () => {
     const [phone, setPhone] = useState(shippingAddress.phone || '');
 
     const [step, setStep] = useState(1);
-    const [shippingRates, setShippingRates] = useState([]);
-    const [distance, setDistance] = useState(null);
-    const [selectedRate, setSelectedRate] = useState(null);
+    const [mounted, setMounted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [clover, setClover] = useState(null);
     const [paymentError, setPaymentError] = useState('');
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     useEffect(() => {
         if (!userInfo || cartItems.length === 0) {
@@ -96,69 +100,25 @@ const Checkout = () => {
         }
     }, [userInfo, cartItems, navigate, step]);
 
+    if (!mounted) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
+                <div className="rounded-3xl bg-white/90 p-10 shadow-2xl border border-blue-100 text-center">
+                    <p className="text-blue-700 text-lg font-semibold">Loading checkout...</p>
+                </div>
+            </div>
+        );
+    }
+
     const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
     const taxPrice = 0;
-    const shippingPrice = selectedRate ? Number(selectedRate.rate) : 0;
+    const shippingPrice = 0;
     const totalPrice = subtotal + taxPrice + shippingPrice;
 
     const submitShippingHandler = async (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress({ address, city, postalCode, country, state: province, phone }));
-
-        if (shippingRates.length === 0) {
-            try {
-                setLoading(true);
-                const { data } = await axios.post(
-                    `${process.env.NEXT_PUBLIC_API_URL}/shipping/rates`,
-                    { address, city, postalCode, country, state: province, phone, cartItems },
-                    { headers: { Authorization: `Bearer ${userInfo.token}` } }
-                );
-                
-                const rates = data.rates || (Array.isArray(data) ? data : []);
-                setDistance(data.distance || null);
-                                // Debug: log raw rates from backend
-                                // ...existing code...
-
-                                // Only show Canada Post, FedEx, UPS, USPS shipping methods (strict carrier name and account id)
-                                const allowedAccounts = [
-                                        'ca_e3cbd16a6eb84914985d90875a6ec074', // Canada Post
-                                        'ca_76d0939dc1ce4c99870bbc2844d8d02b', // FedEx Wallet
-                                        'ca_c5f03a14c10d4fbab837e8a35b01c7df'  // UPS
-                                ];
-                                // Only show Canada Post, FedEx (FedExDefault), UPS (UPSDAP), and USPS
-                                const allowedCarrierMap = {
-                                    'ca_e3cbd16a6eb84914985d90875a6ec074': 'Canada Post',
-                                    'ca_76d0939dc1ce4c99870bbc2844d8d02b': 'FedExDefault',
-                                    'ca_c5f03a14c10d4fbab837e8a35b01c7df': 'UPSDAP',
-                                    'ca_b82a2962176446d09a48bc649977f467': 'USPS',
-                                    'ca_fb3ad562209b4e7d930bd0f31f44f2fe': 'DHLExpress'
-                                };
-                                const filteredRates = rates.filter(
-                                    rate => allowedCarrierMap[rate.carrier_account_id] && rate.carrier === allowedCarrierMap[rate.carrier_account_id]
-                                );
-                                // Only show the lowest-priced rate per carrier/account
-                                const bestRatesMap = {};
-                                filteredRates.forEach(rate => {
-                                    const key = rate.carrier_account_id;
-                                    if (!bestRatesMap[key] || Number(rate.rate) < Number(bestRatesMap[key].rate)) {
-                                        bestRatesMap[key] = rate;
-                                    }
-                                });
-                                const bestRates = Object.values(bestRatesMap).sort((a, b) => Number(a.rate) - Number(b.rate));
-                                setShippingRates(bestRates);
-                                if (bestRates.length > 0) setSelectedRate(bestRates[0]);
-            } catch (error) {
-                alert(error.response?.data?.message || 'Error fetching shipping rates');
-            } finally {
-                setLoading(false);
-            }
-        } else {
-            if (!selectedRate) {
-                alert('Please select a shipping method');
-                return;
-            }
-            setStep(2);
-        }
+        setStep(2);
     };
 
     // ✅ CLOVER PAYMENT
@@ -182,14 +142,14 @@ const Checkout = () => {
             // 1. Create order
             const orderData = {
                 orderItems: cartItems,
-                shippingAddress: { 
-                    address, 
-                    city, 
-                    postalCode, 
-                    country, 
-                    phone, 
+                shippingAddress: {
+                    address,
+                    city,
+                    postalCode,
+                    country,
+                    phone,
                     state: province,
-                    shippingMethod: selectedRate ? `${selectedRate.carrier} ${selectedRate.service}` : ''
+                    shippingMethod: 'Free Delivery',
                 },
                 paymentMethod: 'Clover',
                 itemsPrice: subtotal,
@@ -210,7 +170,7 @@ const Checkout = () => {
                 {
                     amount: totalPrice,
                     orderId: createdOrder._id,
-                    source: result.token
+                    source: result.token,
                 },
                 { headers: { Authorization: `Bearer ${userInfo.token}` } }
             );
@@ -219,7 +179,11 @@ const Checkout = () => {
 
         } catch (error) {
             console.error(error);
-            const msg = error.response?.data?.message || 'Payment failed. Please check your card details and try again.';
+            const msg =
+                error.response?.data?.message ||
+                error.response?.data?.error ||
+                error.message ||
+                'Payment failed. Please check your card details and try again.';
             setPaymentError(msg);
         } finally {
             setLoading(false);
@@ -328,54 +292,12 @@ const Checkout = () => {
                                     </div>
                                 </div>
 
-                                {shippingRates.length > 0 && (
-                                    <div className="mt-8 space-y-4">
-                                        <div className="flex justify-between items-end">
-                                            <h3 className="text-lg font-bold text-slate-900">Select Shipping Method</h3>
-                                            {distance && (
-                                                <span className="text-sm font-bold text-blue-700 bg-blue-100 px-3 py-1 rounded-full border border-blue-200 shadow">
-                                                    Distance: {distance} miles
-                                                </span>
-                                            )}
+<div className="mt-8 p-5 bg-green-50 border border-green-100 rounded-3xl text-green-700 font-semibold shadow-sm">
+                                            Free delivery is included on all orders. No shipping charges will be added at checkout.
                                         </div>
-                                        <div className="space-y-3">
-                                            {shippingRates.map((rate) => (
-                                                <div 
-                                                    key={rate.id}
-                                                    onClick={() => setSelectedRate(rate)}
-                                                    className={`p-4 rounded-2xl border-2 cursor-pointer flex justify-between items-center transition-all flex-wrap sm:flex-nowrap shadow-lg ${
-                                                        selectedRate?.id === rate.id 
-                                                            ? 'border-blue-700 bg-gradient-to-br from-blue-100 to-blue-300 scale-105' 
-                                                            : 'border-blue-100 bg-white hover:border-blue-400 hover:bg-blue-50'
-                                                    }`}
-                                                >
-                                                    <div className="min-w-0 flex-1">
-                                                        <div className="font-bold text-blue-900 break-words whitespace-normal text-base drop-shadow-sm">{rate.service}</div>
-                                                        <div className="text-xs text-blue-500 break-words whitespace-normal">{rate.carrier} • {rate.delivery_days ? `${rate.delivery_days} days` : 'Standard'}</div>
-                                                    </div>
-                                                    <div className="font-bold text-blue-800 text-right mt-2 sm:mt-0 min-w-[80px] drop-shadow-sm">
-                                                        ${Number(rate.rate).toFixed(2)} {rate.currency}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {shippingRates.length === 0 && !loading && (
-                                     <div className="mt-8 p-4 bg-yellow-50 text-yellow-800 rounded-xl text-sm border border-yellow-200">
-                                        Please enter your address above and click Calculate Shipping to see available rates.
-                                     </div>
-                                )}
 
                                 <button type="submit" disabled={loading} className="w-full mt-10 bg-gradient-to-r from-blue-600 to-blue-500 text-white py-4 rounded-2xl font-extrabold uppercase text-base tracking-widest hover:from-blue-700 hover:to-blue-600 transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-200 disabled:opacity-70 disabled:cursor-wait">
-                                     {loading ? <Loader2 className="animate-spin" /> : (
-                                        shippingRates.length > 0 ? (
-                                            <>Proceed to Payment <ChevronRight size={20} /></>
-                                        ) : (
-                                            <>Calculate Shipping <Truck size={20} /></>
-                                        )
-                                    )}
+                                    {loading ? <Loader2 className="animate-spin" /> : <>Proceed to Payment <ChevronRight size={20} /></>}
                                 </button>
                             </form>
                         ) : (
@@ -478,19 +400,13 @@ const Checkout = () => {
                                 <span>Subtotal:</span>
                                 <span>${subtotal.toFixed(2)}</span>
                             </div>
-                            {distance && (
-                                <div className="flex justify-between text-blue-300">
-                                    <span>Distance:</span>
-                                    <span>{distance} miles</span>
-                                </div>
-                            )}
                             <div className="flex justify-between">
                                 <span>Tax:</span>
                                 <span>${taxPrice.toFixed(2)}</span>
                             </div>
-                            <div className="flex justify-between">
+                            <div className="flex justify-between text-green-100">
                                 <span>Shipping:</span>
-                                <span>${shippingPrice.toFixed(2)}</span>
+                                <span className="font-bold">Free Delivery</span>
                             </div>
                         </div>
                         <hr className="my-6 border-blue-400/30" />

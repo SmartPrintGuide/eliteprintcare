@@ -11,7 +11,7 @@ function HomePrinterSection() {
     { name: "Inkjet Printers", count: 10, slug: "inkjet-printers" },
     { name: "All In One", count: 53, slug: "all-in-one-printers" },
     { name: "Ink & Toner", count: 51, slug: "ink-toner" },
-    { name: "LED Printers", count: 7, slug: "led-printers" },
+    { name: "Laser", count: 7, slug: "laser-printers" },
   ];
 
   return (
