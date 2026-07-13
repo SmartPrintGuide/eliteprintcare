@@ -2,51 +2,79 @@ import React from "react";
 
 const WelcomeSection = () => {
   return (
-    <section className="relative w-full py-16 md:py-24 bg-gradient-to-br from-blue-50 via-white to-blue-100 overflow-hidden">
+    <section className="relative overflow-hidden bg-white py-20 lg:py-28">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-sky-50" />
 
-      {/* Background Glow */}
-      <div className="absolute -top-20 -left-20 w-80 h-80 bg-blue-400 opacity-20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
+      <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="absolute -right-32 bottom-10 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
 
-      <div className="max-w-4xl mx-auto px-5 md:px-6 relative z-10">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+          {/* Left */}
+          <div>
+            <span className="inline-flex rounded-full border border-blue-200 bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+              About Elite Print Care
+            </span>
 
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl p-8 md:p-14">
+            <h2 className="mt-6 text-4xl font-extrabold leading-tight text-slate-900 md:text-5xl">
+              Your Trusted Partner for
+              <span className="block text-blue-600">
+                Reliable Printing Solutions
+              </span>
+            </h2>
 
-          {/* Heading */}
-          <h2 className="text-3xl md:text-5xl font-extrabold text-blue-800 leading-tight text-left">
-            Welcome to{" "}
-            <span className="text-blue-600">Elite Print Care</span>
-          </h2>
+            <div className="mt-6 h-1 w-24 rounded-full bg-blue-600" />
 
-          {/* Divider */}
-          <div className="w-20 h-1 bg-blue-600 rounded-full mt-4 mb-8"></div>
+            <div className="mt-8 space-y-6 text-lg leading-8 text-slate-600">
+              <p>
+                Elite Print Care is committed to providing dependable printers,
+                genuine ink and toner, and quality printing accessories for
+                homes, businesses, and professionals.
+              </p>
 
-          {/* Content */}
-          <div className="space-y-6 text-gray-700 text-base md:text-lg leading-relaxed text-left">
+              <p>
+                We believe choosing the right printing solution should be
+                simple. That's why we focus on trusted products, clear
+                information, and responsive customer support every step of the
+                way.
+              </p>
 
-            <p>
-              Elite Print Care is your trusted destination for printers,
-              ink, toner, and everyday printing essentials. Our goal is to
-              simplify your decisions by providing clear information and
-              dependable recommendations.
-            </p>
-
-            <p>
-              Whether you're printing at home, working remotely, or managing
-              office tasks, we help you find solutions that are reliable,
-              efficient, and easy to understand.
-            </p>
-
-            <p>
-              From browsing to checkout, we focus on creating a smooth,
-              transparent experience so you can shop with confidence
-              and clarity.
-            </p>
-
+              <p>
+                Whether you need a printer for everyday use or high-volume
+                office printing, our goal is to deliver products and service
+                you can rely on with complete confidence.
+              </p>
+            </div>
           </div>
 
-        </div>
+          {/* Right */}
+          <div className="grid grid-cols-2 gap-5">
+            {[
+              ["Quality Products", "Premium printers and genuine supplies."],
+              ["Expert Support", "Friendly assistance whenever you need it."],
+              ["Fast Delivery", "Reliable shipping with secure packaging."],
+              ["Customer First", "Dedicated to your satisfaction."],
+            ].map(([title, desc]) => (
+              <div
+                key={title}
+                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+              >
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100">
+                  <div className="h-5 w-5 rounded-full bg-blue-600" />
+                </div>
 
+                <h3 className="text-lg font-bold text-slate-900">
+                  {title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
