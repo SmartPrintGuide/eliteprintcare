@@ -50,10 +50,10 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
             )}
 
             <div className={`
-                fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col h-full shadow-lg transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0
+                fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col h-full transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}
             `}>
-                <div className="h-16 flex items-center gap-2 px-6 border-b border-slate-100 shrink-0">
+                <div className="h-16 flex items-center gap-2 px-6 border-b border-gray-200 shrink-0">
                     <div className="flex-1 flex items-center justify-start">
                         <img 
                             src="/spglogo.png" 
@@ -66,7 +66,7 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                     {/* Mobile Close Button */}
                     <button
                         onClick={() => setIsOpen(false)}
-                        className="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-lg"
+                        className="lg:hidden p-2 text-gray-500 hover:bg-gray-100 rounded-lg"
                     >
                         <X size={20} />
                     </button>
@@ -82,8 +82,8 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                                 onClick={() => setIsOpen(false)}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
                                     isActive
-                                        ? 'bg-slate-900 text-white shadow-md'
-                                        : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                                        ? 'bg-[#2564E5] text-white'
+                                        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                                 }`}
                             >
                                 {item.icon}
@@ -93,7 +93,7 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                     })}
                 </nav>
 
-                <div className="p-4 border-t border-slate-100 shrink-0">
+                <div className="p-4 border-t border-gray-200 shrink-0">
                     <button
                         onClick={handleLogout}
                         className="flex items-center gap-3 px-4 py-3 w-full text-left rounded-xl text-red-600 hover:bg-red-50 transition-colors"

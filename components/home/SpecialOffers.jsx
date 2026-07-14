@@ -1,9 +1,9 @@
+"use client";
 import React, { useState } from 'react';
 import { Tag, ChevronLeft, ChevronRight } from 'lucide-react';
-const OfferImage = "/assets/printer.png";
-"use client";
-
 import Link from 'next/link';
+
+const OfferImage = "/assets/printer.png";
 
 const specialOffers = [
     {
@@ -59,15 +59,15 @@ const SpecialOffersSlider = () => {
     const offer = specialOffers[currentIndex];
 
     return (
-        <aside className="w-full border border-slate-200 rounded-xl bg-white p-4 flex flex-col gap-4">
+        <aside className="w-full border border-gray-200 rounded-xl bg-white p-4 flex flex-col gap-4">
             {/* Header */}
-            <div className="flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg font-semibold">
+            <div className="flex items-center gap-2 bg-[#2564E5] text-white px-3 py-2 rounded-lg font-semibold">
                 <Tag size={18} />
                 <span>Special Offers</span>
             </div>
 
             {/* Offer Card */}
-            <div className="relative border border-slate-100 rounded-xl overflow-hidden bg-white">
+            <div className="relative border border-gray-200 rounded-xl overflow-hidden bg-white">
                 {/* Image (clickable) */}
                 <Link href={offer.link} className="h-56 block overflow-hidden relative group">
                     <img
@@ -85,16 +85,16 @@ const SpecialOffersSlider = () => {
 
                 {/* Product Info */}
                 <div className="p-4 flex flex-col gap-2">
-                    <h3 className="text-sm font-medium text-slate-800 line-clamp-2">
+                    <h3 className="text-sm font-medium text-gray-800 line-clamp-2">
                         {offer.name}
                     </h3>
 
                     <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-slate-900">${offer.price}</span>
-                        <span className="text-sm text-slate-400 line-through">${offer.oldPrice}</span>
+                        <span className="text-lg font-bold text-gray-900">${offer.price}</span>
+                        <span className="text-sm text-gray-400 line-through">${offer.oldPrice}</span>
                     </div>
 
-                    <div className="text-xs text-slate-500">
+                    <div className="text-xs text-gray-500">
                         Sold: {offer.sold} | Available: {offer.stock}
                     </div>
                 </div>
@@ -102,13 +102,13 @@ const SpecialOffersSlider = () => {
                 {/* Navigation Buttons */}
                 <button
                     onClick={prevOffer}
-                    className="absolute top-1/2 left-2 -translate-y-1/2 bg-white text-blue-600 p-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition flex items-center justify-center"
+                    className="absolute top-1/2 left-2 -translate-y-1/2 bg-white text-[#2564E5] p-2 rounded-full border border-gray-200 hover:bg-[#2564E5] hover:text-white transition flex items-center justify-center"
                 >
                     <ChevronLeft size={20} />
                 </button>
                 <button
                     onClick={nextOffer}
-                    className="absolute top-1/2 right-2 -translate-y-1/2 bg-white text-blue-600 p-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition flex items-center justify-center"
+                    className="absolute top-1/2 right-2 -translate-y-1/2 bg-white text-[#2564E5] p-2 rounded-full border border-gray-200 hover:bg-[#2564E5] hover:text-white transition flex items-center justify-center"
                 >
                     <ChevronRight size={20} />
                 </button>

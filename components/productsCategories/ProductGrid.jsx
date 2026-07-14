@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import ProductFilter from "./ProductFilter";
 import Link from "next/link";
@@ -42,14 +41,11 @@ const ProductGrid = ({
 
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100 py-16">
-      {/* 3D Background Glow */}
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+    <section className="w-full bg-white py-16">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Heading + Filters */}
         <div className="flex flex-col gap-6 md:gap-8 mb-10 md:mb-14">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-800 drop-shadow-lg">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2564E5]">
             {heading}
           </h2>
           {/* ProductFilter integration */}
@@ -66,7 +62,7 @@ const ProductGrid = ({
           {loading ? (
             <>
               <div className="col-span-4 flex justify-center items-center py-6">
-                <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-gray-200 border-t-[#2564E5] rounded-full animate-spin"></div>
               </div>
               {Array.from({ length: skeletonCount }).map((_, idx) => (
                 <div key={idx} className={enableFlowLayout ? "float-left w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-3 box-border" : ""}>
@@ -91,11 +87,11 @@ const ProductGrid = ({
                       : ""
                   }
                 >
-                  <div className="relative bg-white/60 backdrop-blur-xl rounded-2xl border border-blue-100 shadow-xl hover:shadow-blue-200 transition-all duration-500 hover:-translate-y-2 group flex flex-col h-full overflow-hidden min-h-[160px] sm:min-h-[260px] w-full max-w-[98vw] mx-auto">
+                  <div className="relative bg-white rounded-xl border border-gray-200 hover:border-[#2564E5] transition-colors duration-300 group flex flex-col h-full overflow-hidden min-h-[160px] sm:min-h-[260px] w-full max-w-[98vw] mx-auto">
                     {/* Image */}
                     <Link
                       href={product.link || `/product/${product.slug}`}
-                      className="relative bg-gradient-to-br from-blue-50 to-white p-1 sm:p-4 flex items-center justify-center aspect-[5/3]"
+                      className="relative bg-gray-50 p-1 sm:p-4 flex items-center justify-center aspect-[5/3]"
                     >
                       <img
                         src={optimizeImageUrl(
@@ -114,7 +110,7 @@ const ProductGrid = ({
                         onError={(e) => (e.target.src = "/printer.png")}
                       />
                       {!inStock && (
-                        <span className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                        <span className="absolute top-4 right-4 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-lg">
                           Out of Stock
                         </span>
                       )}
@@ -122,13 +118,13 @@ const ProductGrid = ({
                     {/* Content */}
                     <div className="p-3 sm:p-4 flex flex-col flex-1">
                       {product.category && (
-                        <span className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-2">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-[#2564E5] mb-2">
                           {typeof product.category === "object"
                             ? product.category.name
                             : product.category}
                         </span>
                       )}
-                      <h3 className="text-sm sm:text-base md:text-lg font-semibold text-blue-900 line-clamp-2 mb-1 sm:mb-2">
+                      <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 line-clamp-2 mb-1 sm:mb-2">
                         {product.title}
                       </h3>
                       {product.description && (
@@ -137,7 +133,7 @@ const ProductGrid = ({
                         </p>
                       )}
                       <div className="mt-auto mb-3 sm:mb-5">
-                        <span className="text-base sm:text-lg md:text-2xl font-bold text-blue-800">
+                        <span className="text-base sm:text-lg md:text-2xl font-bold text-gray-900">
                           ${product.price}
                         </span>
                       </div>
@@ -146,7 +142,7 @@ const ProductGrid = ({
                         {inStock && (
                           <button
                             onClick={(e) => handleBuyNow(e, product)}
-                            className="w-full py-3 bg-blue-600 text-white rounded-2xl font-semibold text-sm tracking-wide hover:bg-blue-700 transition-all duration-300 active:scale-95 shadow-xl"
+                            className="w-full py-3 bg-[#2564E5] text-white rounded-lg font-semibold text-sm tracking-wide hover:bg-blue-700 transition-colors duration-300 active:scale-95"
                           >
                             Buy Now
                           </button>
@@ -155,7 +151,7 @@ const ProductGrid = ({
                           onClick={() =>
                             router.push(product.link || `/product/${product.slug}`)
                           }
-                          className="w-full py-3 bg-white text-blue-700 border border-blue-200 rounded-2xl font-medium text-sm hover:bg-blue-50 transition-all duration-300 shadow-lg"
+                          className="w-full py-3 bg-white text-[#2564E5] border border-[#2564E5] rounded-lg font-medium text-sm hover:bg-gray-50 transition-colors duration-300"
                         >
                           View Details
                         </button>

@@ -74,68 +74,68 @@ const HelpSupport = () => {
         <div className="space-y-6">
             {/* Header */}
             <div>
-                <h2 className="text-3xl font-extrabold text-blue-800 mb-2 drop-shadow-lg">Help & Support</h2>
-                <p className="text-blue-500 font-medium">Get assistance with your orders and account</p>
+                <h2 className="text-3xl font-bold text-[#2564E5] mb-2">Help & Support</h2>
+                <p className="text-gray-600 font-medium">Get assistance with your orders and account</p>
             </div>
 
             {/* Contact Options */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-white/80 p-8 rounded-3xl border border-blue-100 shadow-xl hover:shadow-2xl transition-shadow backdrop-blur-xl">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-500 rounded-2xl flex items-center justify-center text-blue-700 mb-6 shadow-lg">
+                <div className="bg-white p-8 rounded-xl border border-gray-200 hover:border-[#2564E5] transition-colors">
+                    <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-[#2564E5] mb-6">
                         <MessageCircle size={24} />
                     </div>
-                    <h3 className="font-bold text-slate-900 mb-2">Live Chat</h3>
-                    <p className="text-sm text-slate-600 mb-4">Chat with our support team in real-time</p>
+                    <h3 className="font-bold text-gray-900 mb-2">Live Chat</h3>
+                    <p className="text-sm text-gray-600 mb-4">Chat with our support team in real-time</p>
                     <button
                         onClick={() => setChatOpen(true)}
-                        className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-sm"
+                        className="w-full px-4 py-2 bg-[#2564E5] text-white rounded-lg hover:bg-blue-700 font-medium text-sm"
                     >
                         Start Chat
                     </button>
                 </div>
 
-                <div className="bg-white/80 p-8 rounded-3xl border border-blue-100 shadow-xl hover:shadow-2xl transition-shadow backdrop-blur-xl">
-                    <div className="w-16 h-16 bg-gradient-to-br from-emerald-200 to-emerald-500 rounded-2xl flex items-center justify-center text-emerald-700 mb-6 shadow-lg">
+                <div className="bg-white p-8 rounded-xl border border-gray-200 hover:border-[#2564E5] transition-colors">
+                    <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-[#2564E5] mb-6">
                         <Mail size={24} />
                     </div>
-                    <h3 className="font-bold text-slate-900 mb-2">Email Support</h3>
-                    <p className="text-sm text-slate-600 mb-4">Get help via email within 24 hours</p>
+                    <h3 className="font-bold text-gray-900 mb-2">Email Support</h3>
+                    <p className="text-sm text-gray-600 mb-4">Get help via email within 24 hours</p>
                     <a
                         href="mailto:support@wideprinters.com"
-                        className="block w-full px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-medium text-sm text-center"
+                        className="block w-full px-4 py-2 bg-[#2564E5] text-white rounded-lg hover:bg-blue-700 font-medium text-sm text-center"
                     >
                         Send Email
                     </a>
                 </div>
 
-                <div className="bg-white/80 p-8 rounded-3xl border border-blue-100 shadow-xl hover:shadow-2xl transition-shadow backdrop-blur-xl">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-200 to-purple-500 rounded-2xl flex items-center justify-center text-purple-700 mb-6 shadow-lg">
+                <div className="bg-white p-8 rounded-xl border border-gray-200 hover:border-[#2564E5] transition-colors">
+                    <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-[#2564E5] mb-6">
                         <Clock size={24} />
                     </div>
-                    <h3 className="font-bold text-slate-900 mb-2">Support Hours</h3>
-                    <p className="text-sm text-slate-600 mb-2">Monday - Saturday</p>
-                    <p className="text-sm font-bold text-slate-900">8:00 AM - 7:00 PM</p>
+                    <h3 className="font-bold text-gray-900 mb-2">Support Hours</h3>
+                    <p className="text-sm text-gray-600 mb-2">Monday - Saturday</p>
+                    <p className="text-sm font-bold text-gray-900">8:00 AM - 7:00 PM</p>
                 </div>
             </div>
 
             {/* FAQs */}
-            <div className="bg-white/80 rounded-3xl border border-blue-100 p-8 shadow-xl backdrop-blur-xl">
-                <h3 className="text-2xl font-extrabold text-blue-800 mb-6 flex items-center gap-2 drop-shadow-lg">
-                    <HelpCircle size={28} className="text-blue-600" />
+            <div className="bg-white rounded-xl border border-gray-200 p-8">
+                <h3 className="text-2xl font-bold text-[#2564E5] mb-6 flex items-center gap-2">
+                    <HelpCircle size={28} className="text-[#2564E5]" />
                     Frequently Asked Questions
                 </h3>
                 <div className="space-y-4">
                     {faqs.map((faq, index) => (
                         <details key={index} className="group">
-                            <summary className="flex items-center justify-between cursor-pointer list-none p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors font-bold text-blue-900">
+                            <summary className="flex items-center justify-between cursor-pointer list-none p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors font-semibold text-gray-900">
                                 <span>{faq.question}</span>
-                                <span className="text-blue-400 group-open:rotate-180 transition-transform">
+                                <span className="text-gray-400 group-open:rotate-180 transition-transform">
                                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </span>
                             </summary>
-                            <div className="p-4 text-blue-700 text-base font-medium">
+                            <div className="p-4 text-gray-700 text-base font-medium">
                                 {faq.answer}
                             </div>
                         </details>
@@ -145,11 +145,11 @@ const HelpSupport = () => {
 
             {/* Live Chat Widget */}
             {chatOpen && (
-                <div className="fixed bottom-4 right-4 w-96 h-[500px] bg-white/80 rounded-3xl shadow-2xl border border-blue-100 flex flex-col z-50 max-w-[calc(100vw-2rem)] backdrop-blur-xl">
+                <div className="fixed bottom-4 right-4 w-96 h-[500px] bg-white rounded-xl shadow-2xl border border-gray-200 flex flex-col z-50 max-w-[calc(100vw-2rem)]">
                     {/* Chat Header */}
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-3xl flex items-center justify-between shadow-lg">
+                    <div className="bg-[#2564E5] text-white p-6 rounded-t-xl flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center">
+                            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                                 <MessageCircle size={20} />
                             </div>
                             <div>
@@ -166,9 +166,9 @@ const HelpSupport = () => {
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-6 space-y-3 bg-blue-50">
+                    <div className="flex-1 overflow-y-auto p-6 space-y-3 bg-gray-50">
                         {loading ? (
-                            <div className="text-center text-slate-400 py-10">Loading chat...</div>
+                            <div className="text-center text-gray-400 py-10">Loading chat...</div>
                         ) : error ? (
                             <div className="text-center text-red-500 py-10">{error}</div>
                         ) : chat && chat.messages && chat.messages.length > 0 ? (
@@ -176,12 +176,12 @@ const HelpSupport = () => {
                                 const isUser = msg.sender.toString() === userInfo._id;
                                 return (
                                     <div key={index} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-                                        <div className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${isUser
-                                            ? 'bg-blue-600 text-white rounded-tr-none'
-                                            : 'bg-white text-slate-700 rounded-tl-none border border-slate-200'
+                                        <div className={`max-w-[80%] rounded-xl px-4 py-2 text-sm ${isUser
+                                            ? 'bg-[#2564E5] text-white rounded-tr-none'
+                                            : 'bg-white text-gray-700 rounded-tl-none border border-gray-200'
                                             }`}>
                                             <p>{msg.message}</p>
-                                            <div className={`text-[10px] mt-1 text-right ${isUser ? 'text-blue-100' : 'text-slate-400'}`}>
+                                            <div className={`text-[10px] mt-1 text-right ${isUser ? 'text-blue-100' : 'text-gray-400'}`}>
                                                 {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </div>
                                         </div>
@@ -189,7 +189,7 @@ const HelpSupport = () => {
                                 );
                             })
                         ) : (
-                            <div className="text-center text-blue-400 py-10">
+                            <div className="text-center text-gray-400 py-10">
                                 <MessageCircle size={48} className="mx-auto mb-3 opacity-50" />
                                 <p className="text-lg font-bold">Start a conversation with our support team!</p>
                             </div>
@@ -198,18 +198,18 @@ const HelpSupport = () => {
                     </div>
 
                     {/* Input */}
-                    <div className="p-4 bg-blue-100 border-t border-blue-200 rounded-b-3xl">
+                    <div className="p-4 bg-white border-t border-gray-200 rounded-b-xl">
                         <form onSubmit={handleSend} className="flex gap-3">
                             <input
                                 type="text"
-                                className="flex-1 bg-white/80 border-0 rounded-full px-5 py-3 text-base font-medium focus:ring-2 focus:ring-blue-500 outline-none shadow-md"
+                                className="flex-1 bg-white border border-gray-300 rounded-full px-5 py-3 text-base font-medium focus:ring-2 focus:ring-[#2564E5] outline-none"
                                 placeholder="Type your message..."
                                 value={newMessage}
                                 onChange={(e) => setNewMessage(e.target.value)}
                             />
                             <button
                                 type="submit"
-                                className="p-3 bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-full hover:from-blue-700 hover:to-blue-600 transition-colors shrink-0 shadow-lg shadow-blue-200"
+                                className="p-3 bg-[#2564E5] text-white rounded-full hover:bg-blue-700 transition-colors shrink-0"
                             >
                                 <Send size={22} />
                             </button>

@@ -1,12 +1,12 @@
-import React from 'react';
-const OfferImage = "/assets/printer.png";
 "use client";
-
+import React from 'react';
 import Link from 'next/link';
+
+const OfferImage = "/assets/printer.png";
 
 const OfferCard = () => {
     return (
-        <div className="w-full border border-slate-200 rounded-xl bg-white overflow-hidden flex flex-col justify-between">
+        <div className="w-full border border-gray-200 rounded-xl bg-white overflow-hidden flex flex-col justify-between">
             {/* Offer Image */}
             <div className="h-85 flex items-center justify-center overflow-hidden">
                 <img
@@ -20,7 +20,7 @@ const OfferCard = () => {
             <div className="p-4">
                 <Link
                     href="/offers"
-                    className="block w-full text-center py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                    className="block w-full text-center py-2 bg-[#2564E5] hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
                 >
                     Shop Now
                 </Link>

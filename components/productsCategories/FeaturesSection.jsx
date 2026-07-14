@@ -28,18 +28,13 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-blue-100 overflow-hidden">
-      
-      {/* Background Glow Effects */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200/40 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Heading */}
         <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-800">
-            <span className="text-blue-600">Why Choose Elite Print Care?</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2564E5]">
+            Why Choose Elite Print Care?
           </h2>
           <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
             Experience reliability, clarity, and support designed around your printing needs.
@@ -51,26 +46,22 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group relative bg-white/80 backdrop-blur-xl border border-blue-100 rounded-3xl p-8 shadow-xl hover:shadow-blue-300/50 transition-all duration-500 hover:-translate-y-3"
+              className="bg-white border border-gray-200 rounded-xl p-8 hover:border-[#2564E5] transition-colors duration-300"
             >
               {/* Icon Circle */}
-              <div className="relative mb-6 flex justify-center">
-                <div className="absolute w-20 h-20 bg-blue-200/40 rounded-full blur-2xl group-hover:scale-110 transition"></div>
-                <div className="relative w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg">
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full bg-[#2564E5] text-white flex items-center justify-center">
                   <feature.icon className="h-8 w-8" />
                 </div>
               </div>
 
               {/* Text */}
-              <h3 className="text-lg font-semibold text-blue-900 mb-3 text-center">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3 text-center">
                 {feature.title}
               </h3>
               <p className="text-gray-600 text-sm text-center leading-relaxed">
                 {feature.description}
               </p>
-
-              {/* Hover Glow Border */}
-              <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-blue-300 transition duration-500"></div>
             </div>
           ))}
         </div>

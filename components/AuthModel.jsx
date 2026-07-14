@@ -110,22 +110,18 @@ const AuthModal = ({ isOpen, onClose }) => {
 
       {/* Dark Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-md"
+        className="absolute inset-0 bg-black/60"
         onClick={onClose}
       />
 
-      {/* Blue Glow Background */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
-
       {/* Modal Box */}
-      <div className="relative w-[95%] sm:w-[480px] bg-white/70 backdrop-blur-2xl border border-blue-100 rounded-3xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-300"
+      <div className="relative w-[95%] sm:w-[480px] bg-white border border-gray-200 rounded-xl p-8 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-300"
         style={{ maxWidth: '480px' }}
       >
 
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-extrabold text-blue-800">
+          <h2 className="text-2xl font-bold text-[#2564E5]">
             {mode === "login" && "Login"}
             {mode === "signup" && "Create Account"}
             {mode === "verify-otp" && "Verify OTP"}
@@ -134,40 +130,40 @@ const AuthModal = ({ isOpen, onClose }) => {
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-blue-700 transition"
+            className="text-gray-500 hover:text-[#2564E5] transition"
           >
             <X size={22} />
           </button>
         </div>
 
         {errorMessage && (
-          <div className="mb-4 text-red-500 text-sm text-center bg-red-50 border border-red-200 rounded-lg px-3 py-2 font-semibold">
+          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
             {errorMessage}
           </div>
         )}
         {/* Show incorrect userid/password error if login fails */}
         {mode === "login" && error && (
-          <div className="mb-4 text-red-500 text-sm text-center bg-red-50 border border-red-200 rounded-lg px-3 py-2 font-semibold">
+          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
             Incorrect email or password.
           </div>
         )}
         {successMessage && (
-          <div className="mb-4 text-green-600 text-sm text-center bg-green-50 border border-green-200 rounded-lg px-3 py-2 font-semibold">
+          <div className="mb-4 text-green-600 text-sm text-center bg-green-50 border border-green-200 rounded-xl px-3 py-2 font-medium">
             {successMessage}
           </div>
         )}
         {mode === "signup" && errorSendOTP && (
-          <div className="mb-4 text-red-500 text-sm text-center bg-red-50 border border-red-200 rounded-lg px-3 py-2 font-semibold">
+          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
             {errorSendOTP}
           </div>
         )}
         {mode === "verify-otp" && errorVerifyOTP && (
-          <div className="mb-4 text-red-500 text-sm text-center bg-red-50 border border-red-200 rounded-lg px-3 py-2 font-semibold">
+          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
             {errorVerifyOTP}
           </div>
         )}
         {mode === "reset-password" && errorReset && (
-          <div className="mb-4 text-red-500 text-sm text-center bg-red-50 border border-red-200 rounded-lg px-3 py-2 font-semibold">
+          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
             {errorReset === 'Invalid or expired OTP' || errorReset === 'OTP not matched' ? 'OTP not matched' : errorReset}
           </div>
         )}
@@ -178,7 +174,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] bg-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -188,7 +184,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] bg-white"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -205,7 +201,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             {/* Move Forgot Password above Login button */}
             <button
               type="button"
-              className="w-full text-xs text-blue-600 hover:underline font-semibold mb-2"
+              className="w-full text-xs text-[#2564E5] hover:underline font-medium mb-2"
               onClick={() => setMode("forgot-password")}
             >
               Forgot Password?
@@ -214,7 +210,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-semibold flex justify-center items-center gap-2 hover:scale-[1.02] transition shadow-lg shadow-blue-200"
+              className="w-full py-3 bg-[#2564E5] text-white rounded-xl font-semibold flex justify-center items-center gap-2 hover:bg-blue-700 transition"
             >
               {loading ? (
                 <Loader2 className="animate-spin" size={18} />
@@ -229,7 +225,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               Don’t have account?{" "}
               <button
                 type="button"
-                className="text-blue-600 font-semibold"
+                className="text-[#2564E5] font-medium"
                 onClick={() => setMode("signup")}
               >
                 Signup
@@ -241,16 +237,16 @@ const AuthModal = ({ isOpen, onClose }) => {
           {mode === "verify-otp" && (
             <form onSubmit={submitHandler} className="space-y-5">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail className="text-blue-600" size={24} />
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail className="text-[#2564E5]" size={24} />
                 </div>
-                <p className="text-slate-600 text-sm">
+                <p className="text-gray-600 text-sm">
                   We've sent a 6-digit OTP to <strong>{email}</strong>
                 </p>
               </div>
               <input
                 type="text"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 text-center text-2xl font-mono tracking-widest focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-center text-2xl font-mono tracking-widest focus:ring-2 focus:ring-[#2564E5] bg-white"
                 placeholder="000000"
                 value={otp}
                 onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
@@ -260,7 +256,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={otp.length !== 6 || loadingVerifyOTP}
-                className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-semibold shadow-lg shadow-blue-200 flex justify-center items-center gap-2 disabled:opacity-50"
+                className="w-full py-3 bg-[#2564E5] text-white rounded-xl font-semibold flex justify-center items-center gap-2 disabled:opacity-50 hover:bg-blue-700 transition"
               >
                 {loadingVerifyOTP ? (
                   <Loader2 className="animate-spin" size={18} />
@@ -272,7 +268,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                 Didn't receive OTP?{' '}
                 <button
                   type="button"
-                  className="text-blue-600 font-semibold"
+                  className="text-[#2564E5] font-medium"
                   onClick={() => { setMode('signup'); setOtp(''); }}
                 >
                   Try again
@@ -285,16 +281,16 @@ const AuthModal = ({ isOpen, onClose }) => {
           {mode === "forgot-password" && (
             <form onSubmit={submitHandler} className="space-y-5">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail className="text-blue-600" size={24} />
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail className="text-[#2564E5]" size={24} />
                 </div>
-                <p className="text-slate-600 text-sm">
+                <p className="text-gray-600 text-sm">
                   Enter your email address and we'll send you a reset code
                 </p>
               </div>
               <input
                 type="email"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
                 placeholder="Enter your email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
@@ -302,7 +298,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               />
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-semibold shadow-lg shadow-blue-200"
+                className="w-full py-3 bg-[#2564E5] text-white rounded-xl font-semibold hover:bg-blue-700 transition"
               >
                 Send Reset Code
               </button>
@@ -310,7 +306,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                 Remember your password?{' '}
                 <button
                   type="button"
-                  className="text-blue-600 font-semibold"
+                  className="text-[#2564E5] font-medium"
                   onClick={() => setMode('login')}
                 >
                   Login
@@ -323,16 +319,16 @@ const AuthModal = ({ isOpen, onClose }) => {
           {mode === "reset-password" && (
             <form onSubmit={submitHandler} className="space-y-5">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Key className="text-blue-600" size={24} />
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Key className="text-[#2564E5]" size={24} />
                 </div>
-                <p className="text-slate-600 text-sm">
+                <p className="text-gray-600 text-sm">
                   Enter the OTP sent to <strong>{email}</strong> and your new password
                 </p>
               </div>
               <input
                 type="text"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 text-center text-2xl font-mono tracking-widest focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-center text-2xl font-mono tracking-widest focus:ring-2 focus:ring-[#2564E5] bg-white"
                 placeholder="000000"
                 value={otp}
                 onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
@@ -341,7 +337,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               />
               <input
                 type="password"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
                 placeholder="New Password"
                 value={newPassword}
                 onChange={e => setNewPassword(e.target.value)}
@@ -349,7 +345,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               />
               <input
                 type="password"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
                 placeholder="Confirm New Password"
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
@@ -358,14 +354,14 @@ const AuthModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={otp.length !== 6}
-                className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-semibold shadow-lg shadow-blue-200"
+                className="w-full py-3 bg-[#2564E5] text-white rounded-xl font-semibold hover:bg-blue-700 transition"
               >
                 Reset Password
               </button>
               <div className="text-sm text-center mt-6">
                 <button
                   type="button"
-                  className="text-blue-600 font-semibold"
+                  className="text-[#2564E5] font-medium"
                   onClick={() => setMode('forgot-password')}
                 >
                   Try different email
@@ -381,7 +377,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               <input
                 type="text"
                 placeholder="First Name"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -389,7 +385,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               <input
                 type="text"
                 placeholder="Last Name"
-                className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -399,7 +395,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -408,7 +404,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <input
               type="password"
               placeholder="Password"
-              className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -417,7 +413,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full rounded-xl border border-blue-200 px-4 py-3 focus:ring-2 focus:ring-blue-500 bg-white/80"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-[#2564E5] bg-white"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -426,7 +422,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <button
               type="submit"
               disabled={loadingSendOTP}
-              className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-semibold shadow-lg shadow-blue-200"
+              className="w-full py-3 bg-[#2564E5] text-white rounded-xl font-semibold hover:bg-blue-700 transition"
             >
               {loadingSendOTP ? (
                 <Loader2 className="animate-spin mx-auto" size={18} />
@@ -439,7 +435,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               Already have account?{" "}
               <button
                 type="button"
-                className="text-blue-600 font-semibold"
+                className="text-[#2564E5] font-medium"
                 onClick={() => setMode("login")}
               >
                 Login

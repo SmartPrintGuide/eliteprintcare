@@ -112,16 +112,11 @@ const CategoryProductList = ({ categoryName, heading, enableFlowLayout = false }
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-blue-100 py-2 sm:py-4 overflow-hidden">
-      
-      {/* Soft Background Glow */}
-      <div className="absolute top-0 left-10 w-72 h-72 bg-blue-200/40 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-10 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl"></div>
-
-      <div className="relative max-w-7xl mx-auto px-0 sm:px-0 md:px-0 lg:px-0 xl:px-0">
+    <section className="bg-white py-2 sm:py-4">
+      <div className="max-w-7xl mx-auto px-0 sm:px-0 md:px-0 lg:px-0 xl:px-0">
 
         {/* Product Grid */}
-        <div className="bg-transparent p-0 transition-all duration-500" id="product-grid" ref={gridRef}>
+        <div className="bg-transparent p-0" id="product-grid" ref={gridRef}>
           <ProductGrid
             heading={heading || categoryName}
             products={formattedProducts.map((p, i) =>
@@ -136,7 +131,7 @@ const CategoryProductList = ({ categoryName, heading, enableFlowLayout = false }
         {/* Loading State for initial load only */}
         {loading && page === 1 && formattedProducts.length > 0 && (
           <div className="py-10 text-center">
-            <div className="inline-block px-6 py-3 rounded-full bg-blue-100 text-blue-700 font-semibold animate-pulse shadow-md">
+            <div className="inline-block px-6 py-3 rounded-lg bg-gray-100 text-[#2564E5] font-semibold animate-pulse">
               Loading Products...
             </div>
           </div>
@@ -148,16 +143,16 @@ const CategoryProductList = ({ categoryName, heading, enableFlowLayout = false }
             <button
               onClick={loadMoreHandler}
               disabled={loadingMore}
-              className={`px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-bold tracking-wide shadow-xl hover:shadow-blue-400/60 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 ${loadingMore ? 'opacity-70 cursor-not-allowed' : ''}`}
+              className={`px-10 py-3 bg-[#2564E5] text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 ${loadingMore ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
               {loadingMore && (
-                <span className="w-6 h-6 border-4 border-white border-t-blue-600 rounded-full animate-spin mr-2"></span>
+                <span className="w-6 h-6 border-4 border-white border-t-blue-200 rounded-full animate-spin mr-2"></span>
               )}
               {loadingMore ? 'Loading...' : 'View More Products'}
             </button>
             {loadingMore && (
               <div className="w-full flex justify-center mt-6">
-                <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-gray-200 border-t-[#2564E5] rounded-full animate-spin"></div>
               </div>
             )}
           </div>

@@ -43,18 +43,13 @@ const choosePoints = [
 
 const WhyChooseSection = () => {
   return (
-    <section className="relative w-full py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100 overflow-hidden">
-
-      {/* Soft Glow Background */}
-      <div className="absolute -left-24 top-10 w-80 h-80 bg-blue-200/30 rounded-full blur-3xl"></div>
-      <div className="absolute -right-24 bottom-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section className="w-full py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-800">
-            <span className="text-blue-600">Why Choose Elite Print Care?</span>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2564E5]">
+            Why Choose Elite Print Care?
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
             Experience a smarter way to shop for printers, ink, and toner —
@@ -63,7 +58,7 @@ const WhyChooseSection = () => {
         </div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
 
           {/* Left Side - Points */}
           <div className="grid sm:grid-cols-2 gap-6">
@@ -71,13 +66,13 @@ const WhyChooseSection = () => {
             {choosePoints.map((point) => (
               <div
                 key={point.id}
-                className="bg-white/80 backdrop-blur-xl border border-blue-100 rounded-2xl p-6 shadow-lg hover:shadow-blue-200/60 transition-all duration-300 hover:-translate-y-1"
+                className="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#2564E5] transition-colors duration-300"
               >
-                <div className="flex items-center gap-3 mb-3 text-blue-700">
-                  <div className="bg-blue-100 p-2 rounded-lg">
+                <div className="flex items-center gap-3 mb-3 text-[#2564E5]">
+                  <div className="bg-gray-50 p-2 rounded-lg">
                     {point.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-blue-800">
+                  <h3 className="text-lg font-semibold text-gray-800">
                     {point.title}
                   </h3>
                 </div>
@@ -90,13 +85,11 @@ const WhyChooseSection = () => {
           </div>
 
           {/* Right Side - Image */}
-          <div className="relative">
-            <div className="absolute -inset-4 bg-blue-200/30 rounded-3xl blur-2xl"></div>
-
+          <div>
             <img
               src={WhyImage}
               alt="Why Choose Elite Print Care"
-              className="relative w-full h-full object-cover rounded-3xl shadow-2xl border border-blue-100"
+              className="w-full h-full object-cover rounded-xl border border-gray-200"
             />
           </div>
 

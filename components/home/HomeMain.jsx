@@ -34,13 +34,13 @@ const HomeMain = () => {
     // ================= SEARCH PAGE =================
     if (searchQuery) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
+            <div className="min-h-screen bg-white">
                 <div className="max-w-7xl mx-auto px-6 py-16">
 
-                    <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
-                        <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-10">
+                    <div className="bg-white rounded-xl border border-gray-200 p-8 md:p-12">
+                        <h1 className="text-3xl md:text-4xl font-bold text-[#2564E5] mb-10">
                             Search Results for{" "}
-                            <span className="text-blue-600">"{searchQuery}"</span>
+                            <span className="text-gray-700">"{searchQuery}"</span>
                         </h1>
 
                         <ProductGrid products={products} loading={loading} />

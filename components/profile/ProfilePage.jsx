@@ -69,51 +69,48 @@ const ProfilePage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 pt-24 pb-12 px-4 relative overflow-hidden">
-            {/* 3D Glow Effects */}
-            <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-400 opacity-30 rounded-full blur-3xl z-0"></div>
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600 opacity-20 rounded-full blur-3xl z-0"></div>
-            <div className="max-w-6xl mx-auto relative z-10">
+        <div className="min-h-screen bg-white pt-12 pb-12 px-4">
+            <div className="max-w-6xl mx-auto">
                 <div className="flex flex-col md:flex-row gap-8">
                     {/* Sidebar Navigation */}
                     <aside className="w-full md:w-72 flex-shrink-0 mb-8 md:mb-0">
-                        <div className="bg-white/90 rounded-3xl shadow-2xl border border-blue-100 p-8 flex flex-col items-center text-center">
-                            <div className="w-24 h-24 bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-4 text-white shadow-2xl border-4 border-blue-200">
-                                <span className="text-3xl font-extrabold uppercase drop-shadow-lg">{profileUser?.firstName?.charAt(0) || profileUser?.name?.charAt(0) || '?'}</span>
+                        <div className="bg-white rounded-xl border border-gray-200 p-8 flex flex-col items-center text-center">
+                            <div className="w-24 h-24 bg-[#2564E5] rounded-full flex items-center justify-center mb-4 text-white">
+                                <span className="text-3xl font-bold uppercase">{profileUser?.firstName?.charAt(0) || profileUser?.name?.charAt(0) || '?'}</span>
                             </div>
-                            <h2 className="text-xl font-extrabold text-blue-800 drop-shadow-lg mb-1">{profileUser?.name || 'Loading...'}</h2>
-                            <p className="text-blue-500 text-xs truncate max-w-full font-medium mb-2">{profileUser?.email || 'Loading...'}</p>
-                            <div className="inline-flex items-center px-4 py-1 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 text-xs font-bold rounded-full shadow-md mb-4">
+                            <h2 className="text-xl font-bold text-gray-900 mb-1">{profileUser?.name || 'Loading...'}</h2>
+                            <p className="text-gray-500 text-xs truncate max-w-full font-medium mb-2">{profileUser?.email || 'Loading...'}</p>
+                            <div className="inline-flex items-center px-4 py-1 bg-gray-100 text-[#2564E5] text-xs font-bold rounded-full mb-4">
                                 {profileUser?.isAdmin ? 'Administrator' : 'Customer'}
                             </div>
                             <div className="w-full flex flex-col gap-2 mt-4">
                                 <button
                                     onClick={() => setActiveTab('settings')}
-                                    className={`w-full py-2 rounded-xl text-base font-bold transition-all ${activeTab === 'settings' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg' : 'text-blue-700 hover:bg-blue-100'} backdrop-blur-xl`}
+                                    className={`w-full py-2 rounded-xl text-base font-semibold transition-all ${activeTab === 'settings' ? 'bg-[#2564E5] text-white' : 'text-gray-700 hover:bg-gray-50'}`}
                                 >
                                     Profile Details
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('orders')}
-                                    className={`w-full py-2 rounded-xl text-base font-bold transition-all ${activeTab === 'orders' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg' : 'text-blue-700 hover:bg-blue-100'} backdrop-blur-xl`}
+                                    className={`w-full py-2 rounded-xl text-base font-semibold transition-all ${activeTab === 'orders' ? 'bg-[#2564E5] text-white' : 'text-gray-700 hover:bg-gray-50'}`}
                                 >
                                     Order History
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('help')}
-                                    className={`w-full py-2 rounded-xl text-base font-bold transition-all ${activeTab === 'help' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg' : 'text-blue-700 hover:bg-blue-100'} backdrop-blur-xl`}
+                                    className={`w-full py-2 rounded-xl text-base font-semibold transition-all ${activeTab === 'help' ? 'bg-[#2564E5] text-white' : 'text-gray-700 hover:bg-gray-50'}`}
                                 >
                                     Help & Support
                                 </button>
                             </div>
-                            <div className="w-full flex justify-between mt-8 pt-6 border-t border-blue-100">
+                            <div className="w-full flex justify-between mt-8 pt-6 border-t border-gray-200">
                                 <div className="flex flex-col items-center">
-                                    <span className="text-blue-700 text-xs font-semibold flex items-center gap-1"><Package size={16} /> Orders</span>
-                                    <span className="font-extrabold text-blue-900 text-lg">{orders?.length || 0}</span>
+                                    <span className="text-gray-600 text-xs font-semibold flex items-center gap-1"><Package size={16} /> Orders</span>
+                                    <span className="font-bold text-gray-900 text-lg">{orders?.length || 0}</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <span className="text-blue-700 text-xs font-semibold flex items-center gap-1"><CreditCard size={16} /> Saved Cards</span>
-                                    <span className="font-extrabold text-blue-900 text-lg">0</span>
+                                    <span className="text-gray-600 text-xs font-semibold flex items-center gap-1"><CreditCard size={16} /> Saved Cards</span>
+                                    <span className="font-bold text-gray-900 text-lg">0</span>
                                 </div>
                             </div>
                         </div>
@@ -122,13 +119,13 @@ const ProfilePage = () => {
                     {/* Main Content Area */}
                     <main className="flex-1">
                         {activeTab === 'settings' ? (
-                            <div className="bg-white/80 rounded-3xl shadow-2xl border border-blue-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 backdrop-blur-xl">
-                                <div className="p-8 border-b border-blue-100 flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-200">
+                            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                                <div className="p-8 border-b border-gray-200 flex items-center justify-between bg-gray-50">
                                     <div>
-                                        <h2 className="text-2xl font-extrabold text-blue-800 drop-shadow-lg">Personal Information</h2>
-                                        <p className="text-blue-500 text-base mt-1 font-medium">Update your basic profile info and email</p>
+                                        <h2 className="text-2xl font-bold text-[#2564E5]">Personal Information</h2>
+                                        <p className="text-gray-600 text-base mt-1 font-medium">Update your basic profile info and email</p>
                                     </div>
-                                    <User className="text-blue-300 drop-shadow-lg" size={36} />
+                                    <User className="text-[#2564E5]" size={36} />
                                 </div>
 
                                 <form onSubmit={submitHandler} className="p-8 space-y-8">
@@ -153,66 +150,66 @@ const ProfilePage = () => {
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-slate-700">First Name</label>
+                                            <label className="text-sm font-semibold text-gray-700">First Name</label>
                                             <input
                                                 type="text"
                                                 value={firstName}
                                                 onChange={(e) => setFirstName(e.target.value)}
-                                                className="w-full px-5 py-3 bg-blue-50 border border-blue-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition-all font-medium text-blue-900 placeholder:text-blue-400 shadow-md"
+                                                className="w-full px-5 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] outline-none transition-all font-medium text-gray-900"
                                                 placeholder="First Name"
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-slate-700">Last Name</label>
+                                            <label className="text-sm font-semibold text-gray-700">Last Name</label>
                                             <input
                                                 type="text"
                                                 value={lastName}
                                                 onChange={(e) => setLastName(e.target.value)}
-                                                className="w-full px-5 py-3 bg-blue-50 border border-blue-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition-all font-medium text-blue-900 placeholder:text-blue-400 shadow-md"
+                                                className="w-full px-5 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] outline-none transition-all font-medium text-gray-900"
                                                 placeholder="Last Name"
                                             />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Email Address</label>
+                                        <label className="text-sm font-semibold text-gray-700">Email Address</label>
                                         <div className="relative">
-                                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                             <input
                                                 type="email"
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full pl-10 pr-4 py-3 bg-blue-50 border border-blue-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition-all font-medium text-blue-900 placeholder:text-blue-400 shadow-md"
+                                                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] outline-none transition-all font-medium text-gray-900"
                                                 placeholder="Email Address"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="pt-6 border-t border-slate-100">
-                                        <h3 className="text-sm font-bold text-slate-400 mb-6 uppercase tracking-widest">Security Settings</h3>
+                                    <div className="pt-6 border-t border-gray-100">
+                                        <h3 className="text-sm font-bold text-gray-500 mb-6 uppercase tracking-widest">Security Settings</h3>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-sm font-semibold text-slate-700">New Password</label>
+                                                <label className="text-sm font-semibold text-gray-700">New Password</label>
                                                 <div className="relative">
-                                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                                     <input
                                                         type="password"
                                                         value={password}
                                                         onChange={(e) => setPassword(e.target.value)}
-                                                        className="w-full pl-10 pr-4 py-3 bg-blue-50 border border-blue-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition-all font-medium text-blue-900 placeholder:text-blue-400 shadow-md"
+                                                        className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] outline-none transition-all font-medium text-gray-900"
                                                         placeholder="••••••••"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-sm font-semibold text-slate-700">Confirm Password</label>
+                                                <label className="text-sm font-semibold text-gray-700">Confirm Password</label>
                                                 <div className="relative">
-                                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                                     <input
                                                         type="password"
                                                         value={confirmPassword}
                                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                                        className="w-full pl-10 pr-4 py-3 bg-blue-50 border border-blue-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition-all font-medium text-blue-900 placeholder:text-blue-400 shadow-md"
+                                                        className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2564E5] focus:border-[#2564E5] outline-none transition-all font-medium text-gray-900"
                                                         placeholder="••••••••"
                                                     />
                                                 </div>
@@ -224,7 +221,7 @@ const ProfilePage = () => {
                                         <button
                                             type="submit"
                                             disabled={loading || updateLoading}
-                                            className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-600 text-white font-extrabold rounded-2xl transition-all transform hover:shadow-xl disabled:opacity-50 active:scale-95 shadow-lg shadow-blue-200 text-lg"
+                                            className="inline-flex items-center gap-2 px-10 py-4 bg-[#2564E5] hover:bg-blue-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 text-lg"
                                         >
                                             {updateLoading || loading ? (
                                                 <Loader2 className="animate-spin" size={24} />
@@ -239,36 +236,36 @@ const ProfilePage = () => {
                                 </form>
                             </div>
                         ) : activeTab === 'orders' ? (
-                            <div className="bg-white/80 rounded-3xl shadow-2xl border border-blue-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 backdrop-blur-xl">
-                                <div className="p-8 border-b border-blue-100 flex items-center justify-between bg-gradient-to-r from-blue-100 to-blue-200">
+                            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                                <div className="p-8 border-b border-gray-200 flex items-center justify-between bg-gray-50">
                                     <div>
-                                        <h2 className="text-2xl font-extrabold text-blue-800 drop-shadow-lg">Order History</h2>
-                                        <p className="text-blue-500 text-base mt-1 font-medium">View and track all your previous purchases</p>
+                                        <h2 className="text-2xl font-bold text-[#2564E5]">Order History</h2>
+                                        <p className="text-gray-600 text-base mt-1 font-medium">View and track all your previous purchases</p>
                                     </div>
-                                    <Package className="text-blue-300 drop-shadow-lg" size={36} />
+                                    <Package className="text-[#2564E5]" size={36} />
                                 </div>
 
                                 <div className="p-8">
                                     {loadingOrders ? (
                                         <div className="flex flex-col items-center justify-center py-12">
-                                            <Loader2 className="animate-spin text-blue-600 mb-4" size={40} />
-                                            <p className="text-slate-500">Fetching your orders...</p>
+                                            <Loader2 className="animate-spin text-[#2564E5] mb-4" size={40} />
+                                            <p className="text-gray-500">Fetching your orders...</p>
                                         </div>
                                     ) : errorOrders ? (
-                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl flex items-center gap-3">
+                                        <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl flex items-center gap-3">
                                             <AlertCircle size={20} />
                                             {errorOrders}
                                         </div>
                                     ) : orders && orders.length === 0 ? (
                                         <div className="text-center py-12">
-                                            <div className="w-20 h-20 bg-gradient-to-br from-blue-200 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                                                <Package className="text-blue-400" size={36} />
+                                            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                <Package className="text-[#2564E5]" size={36} />
                                             </div>
-                                            <h3 className="text-blue-800 font-extrabold text-xl">No orders found</h3>
-                                            <p className="text-blue-500 mb-6 font-medium">Looks like you haven't placed any orders yet.</p>
+                                            <h3 className="text-gray-900 font-bold text-xl">No orders found</h3>
+                                            <p className="text-gray-500 mb-6 font-medium">Looks like you haven't placed any orders yet.</p>
                                             <Link
                                                 href="/"
-                                                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-400 text-white font-extrabold rounded-2xl hover:from-blue-700 hover:to-blue-600 transition-all text-lg shadow-lg shadow-blue-200"
+                                                className="inline-flex items-center gap-2 px-8 py-3 bg-[#2564E5] text-white font-semibold rounded-xl hover:bg-blue-700 transition-all text-lg"
                                             >
                                                 Start Shopping
                                             </Link>
@@ -277,36 +274,36 @@ const ProfilePage = () => {
                                         <div className="overflow-x-auto">
                                             <table className="w-full text-left border-collapse">
                                                 <thead>
-                                                    <tr className="border-b border-blue-100">
-                                                        <th className="pb-4 pt-2 text-xs font-extrabold text-blue-400 uppercase tracking-widest">Order ID</th>
-                                                        <th className="pb-4 pt-2 text-xs font-extrabold text-blue-400 uppercase tracking-widest">Date</th>
-                                                        <th className="pb-4 pt-2 text-xs font-extrabold text-blue-400 uppercase tracking-widest">Total</th>
-                                                        <th className="pb-4 pt-2 text-xs font-extrabold text-blue-400 uppercase tracking-widest">Status</th>
-                                                        <th className="pb-4 pt-2 text-xs font-extrabold text-blue-400 uppercase tracking-widest text-right">Action</th>
+                                                    <tr className="border-b border-gray-200">
+                                                        <th className="pb-4 pt-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Order ID</th>
+                                                        <th className="pb-4 pt-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Date</th>
+                                                        <th className="pb-4 pt-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Total</th>
+                                                        <th className="pb-4 pt-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Status</th>
+                                                        <th className="pb-4 pt-2 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="divide-y divide-blue-50">
+                                                <tbody className="divide-y divide-gray-100">
                                                     {orders && orders.map((order) => (
-                                                        <tr key={order._id} className="group hover:bg-blue-50/50 transition-colors">
-                                                            <td className="py-4 font-mono text-base text-blue-700">#{order._id.substring(18)}</td>
+                                                        <tr key={order._id} className="group hover:bg-gray-50 transition-colors">
+                                                            <td className="py-4 font-mono text-base text-gray-700">#{order._id.substring(18)}</td>
                                                             <td className="py-4">
-                                                                <div className="flex items-center gap-2 text-blue-700 text-base">
+                                                                <div className="flex items-center gap-2 text-gray-700 text-base">
                                                                     <Calendar size={16} />
                                                                     {new Date(order.createdAt).toLocaleDateString()}
                                                                 </div>
                                                             </td>
-                                                            <td className="py-4 font-extrabold text-blue-900 text-lg">${order.totalPrice.toFixed(2)}</td>
+                                                            <td className="py-4 font-bold text-gray-900 text-lg">${order.totalPrice.toFixed(2)}</td>
                                                             <td className="py-4">
                                                                 {order.isPaid ? (
-                                                                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-extrabold rounded-full uppercase">Paid</span>
+                                                                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full uppercase">Paid</span>
                                                                 ) : (
-                                                                    <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-extrabold rounded-full uppercase">Failed</span>
+                                                                    <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full uppercase">Failed</span>
                                                                 )}
                                                             </td>
                                                             <td className="py-4 text-right">
                                                                 <Link
                                                                     href={`/order/${order._id}`}
-                                                                    className="inline-flex items-center gap-1 text-lg font-extrabold text-blue-600 hover:text-blue-700 transition-colors"
+                                                                    className="inline-flex items-center gap-1 text-lg font-semibold text-[#2564E5] hover:text-blue-700 transition-colors"
                                                                 >
                                                                     Details
                                                                     <ChevronRight size={18} />

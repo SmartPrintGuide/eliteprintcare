@@ -123,7 +123,7 @@ const FAQContent = () => {
   ];
 
   return (
-    <section className="w-full bg-gray-50">
+    <section className="w-full bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Header */}
@@ -132,10 +132,10 @@ const FAQContent = () => {
             <img
               src="/assets/faq.webp"
               alt="Elite Print Care FAQ"
-              className="w-full max-w-sm mx-auto h-40 object-cover rounded-lg shadow-md"
+              className="w-full max-w-sm mx-auto h-40 object-cover rounded-lg"
             />
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#2564E5] mb-4">
             FAQs – Elite Print Care
           </h1>
           <p className="max-w-3xl mx-auto text-gray-600 text-base sm:text-lg">
@@ -146,9 +146,9 @@ const FAQContent = () => {
         {/* FAQ Sections */}
         <div className="space-y-6">
           {faqData.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-              <div className="bg-blue-50 border-b border-gray-200 p-4">
-                <h2 className="text-lg font-semibold text-blue-900">
+            <div key={sectionIndex} className="bg-white rounded-xl overflow-hidden border border-gray-200">
+              <div className="bg-gray-50 border-b border-gray-200 p-4">
+                <h2 className="text-lg font-semibold text-gray-900">
                   {section.category}
                 </h2>
               </div>
@@ -172,7 +172,7 @@ const FAQContent = () => {
                         </span>
                       </button>
                       {isOpen && (
-                        <div className="mt-3 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-200">
+                        <div className="mt-3 p-3 bg-gray-50 rounded-lg border-l-4 border-[#2564E5]">
                           <p className="text-gray-700 leading-relaxed">
                             {faq.a}
                           </p>
@@ -187,8 +187,8 @@ const FAQContent = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-8 bg-blue-50 border border-blue-200 p-6 rounded-lg text-center">
-          <h3 className="text-xl font-semibold text-blue-900 mb-3">
+        <div className="mt-8 bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
+          <h3 className="text-xl font-semibold text-[#2564E5] mb-3">
             Still Need Help?
           </h3>
           <p className="text-gray-700 mb-4">

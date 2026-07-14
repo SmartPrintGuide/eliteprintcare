@@ -35,13 +35,13 @@ const TopPicksGrid = () => {
     if (!loading && displayProducts.length === 0) return null;
 
     return (
-        <section className="max-w-7xl mx-auto px-4 py-20">
+        <section className="max-w-7xl mx-auto px-4 py-16">
             {/* Heading */}
             <div className="mb-12 text-center space-y-3">
-                <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter">
+                <h2 className="text-4xl font-bold text-[#2564E5] uppercase tracking-tighter">
                     Top Picks This Month
                 </h2>
-                <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.3em]">
+                <p className="text-gray-500 font-semibold uppercase text-[10px] tracking-[0.3em]">
                     Explore our most popular pieces that customers can't get enough of
                 </p>
             </div>
@@ -51,11 +51,11 @@ const TopPicksGrid = () => {
                 {displayProducts.map((product) => (
                     <div
                         key={product._id}
-                        className="group bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200/20 hover:shadow-slate-300/40 transition-all duration-500 flex flex-col p-4"
+                        className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#2564E5] transition-colors duration-300 flex flex-col p-4"
                     >
                         {/* Image */}
                         <div
-                            className="relative w-full aspect-square bg-slate-50/50 rounded-[2rem] flex items-center justify-center cursor-pointer overflow-hidden"
+                            className="relative w-full aspect-square bg-gray-50 rounded-xl flex items-center justify-center cursor-pointer overflow-hidden"
                             onClick={() => handleProductClick(product.slug, product._id)}
                         >
                             <img
@@ -65,7 +65,7 @@ const TopPicksGrid = () => {
                                 onError={(e) => e.target.src = printerImg}
                             />
                             {product.rating > 4 && (
-                                <span className="absolute top-4 left-4 bg-slate-900 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full">
+                                <span className="absolute top-4 left-4 bg-[#2564E5] text-white text-[9px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full">
                                     Trending
                                 </span>
                             )}
@@ -74,18 +74,18 @@ const TopPicksGrid = () => {
                         {/* Info */}
                         <div className="p-4 flex-1 flex flex-col justify-between space-y-6">
                             <div>
-                                <h3 className="text-[10px] text-indigo-600 font-black uppercase tracking-widest">
+                                <h3 className="text-[10px] text-[#2564E5] font-semibold uppercase tracking-widest">
                                     {product.category?.name || 'Hardware'}
                                 </h3>
-                                <h2 className="text-sm font-black text-slate-900 mt-2 line-clamp-2 uppercase leading-tight tracking-tight min-h-[40px]">
+                                <h2 className="text-sm font-semibold text-gray-800 mt-2 line-clamp-2 leading-tight min-h-[40px]">
                                     {product.title}
                                 </h2>
                                 <div className="mt-4 flex items-center gap-3">
-                                    <p className="text-xl font-black text-slate-900 tracking-tighter">
+                                    <p className="text-xl font-bold text-gray-900">
                                         ${product.price ? product.price.toFixed(2) : '0.00'}
                                     </p>
                                     {product.oldPrice > 0 && (
-                                        <p className="text-xs text-slate-300 font-bold line-through">
+                                        <p className="text-xs text-gray-400 font-semibold line-through">
                                             ${product.oldPrice.toFixed(2)}
                                         </p>
                                     )}
@@ -95,7 +95,7 @@ const TopPicksGrid = () => {
                             {/* Add to Cart Button */}
                             <button
                                 onClick={handleAddToCartClick}
-                                className="w-full bg-slate-900 text-white py-4 rounded-2xl hover:bg-black transition-all font-black uppercase text-[10px] tracking-widest active:scale-95 shadow-lg shadow-slate-200"
+                                className="w-full bg-[#2564E5] text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold uppercase text-[10px] tracking-widest active:scale-95"
                             >
                                 Add to Cart
                             </button>

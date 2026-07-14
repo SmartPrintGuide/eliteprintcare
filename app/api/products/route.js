@@ -117,6 +117,13 @@ export async function GET(request) {
     const category = searchParams.get('category');
     const pageSize = Number(searchParams.get('limit')) || 20;
     const page = Number(searchParams.get('page')) || 1;
+    const sort = searchParams.get('sort');
+    const brand = searchParams.get('brand');
+    const technology = searchParams.get('technology');
+    const usageCategory = searchParams.get('usageCategory');
+    const allInOneType = searchParams.get('allInOneType');
+    const wireless = searchParams.get('wireless');
+    const mainFunction = searchParams.get('mainFunction');
 
     const query = {};
     if (search) {
@@ -141,9 +148,41 @@ export async function GET(request) {
       }
     }
 
+    if (brand) {
+      query.brand = { $regex: new RegExp(`^${brand}$`, 'i') };
+    }
+
+    if (technology) {
+      query.technology = { $in: technology.split(',').map(t => t.trim()) };
+    }
+
+    if (usageCategory) {
+      query.usageCategory = { $in: usageCategory.split(',').map(u => u.trim()) };
+    }
+
+    if (allInOneType) {
+      query.allInOneType = { $in: allInOneType.split(',').map(a => a.trim()) };
+    }
+
+    if (wireless) {
+      query.wireless = { $regex: new RegExp(`^${wireless}$`, 'i') };
+    }
+
+    if (mainFunction) {
+      query.mainFunction = { $in: mainFunction.split(',').map(m => m.trim()) };
+    }
+
+    let sortOption = {};
+    if (sort === 'lowToHigh') {
+      sortOption.price = 1;
+    } else if (sort === 'highToLow') {
+      sortOption.price = -1;
+    }
+
     const count = await Product.countDocuments(query);
     const products = await Product.find(query)
       .populate({ path: 'category', select: 'name' })
+      .sort(sortOption)
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 

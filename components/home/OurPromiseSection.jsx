@@ -30,17 +30,12 @@ const promises = [
 
 const OurPromiseSection = () => {
   return (
-    <section className="relative w-full py-20 bg-gradient-to-br from-blue-50 via-white to-blue-100 overflow-hidden">
-      
-      {/* Soft Background Glow */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section className="w-full py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
         
         {/* Header */}
         <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-800">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2564E5]">
             Our Promise at Elite Print Care
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
@@ -54,13 +49,13 @@ const OurPromiseSection = () => {
           {promises.map((promise, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-lg border border-blue-100 p-6 rounded-2xl shadow-lg hover:shadow-blue-200/60 transition-all duration-300 hover:-translate-y-2"
+              className="bg-white border border-gray-200 p-6 rounded-xl hover:border-[#2564E5] transition-all duration-300"
             >
-              <div className="flex items-center gap-3 mb-4 text-blue-700">
-                <div className="bg-blue-100 p-2 rounded-lg">
+              <div className="flex items-center gap-3 mb-4 text-[#2564E5]">
+                <div className="bg-gray-50 p-2 rounded-lg">
                   {promise.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-blue-800">
+                <h3 className="text-lg font-semibold text-gray-800">
                   {promise.title}
                 </h3>
               </div>

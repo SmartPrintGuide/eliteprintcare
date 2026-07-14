@@ -60,19 +60,18 @@ const BlogsMain = () => {
 
 
 
-
     ];
 
     return (
-        <div className="bg-slate-50 min-h-screen pt-24 pb-12">
+        <div className="bg-white min-h-screen py-12">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h1 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6 uppercase tracking-tight">
-                        Latest Insights & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Guides</span>
+                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                        Latest Insights & <span className="text-[#2564E5]">Guides</span>
                     </h1>
-                    <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-gray-700 max-w-2xl mx-auto">
                         Expert advice, buying guides, and tips to help you get the most out of your printing experience.
                     </p>
                 </div>
@@ -80,16 +79,16 @@ const BlogsMain = () => {
                 {/* Blog Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {blogs.map((blog) => (
-                        <article key={blog.id} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                        <article key={blog.id} className="bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-[#2564E5] transition-colors group">
                             {/* Image */}
                             <div className="relative h-64 overflow-hidden">
                                 <Link href={`/blogs/${blog.slug}`}>
                                     <img
                                         src={blog.image}
                                         alt={blog.title}
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                        className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-600 uppercase tracking-widest">
+                                    <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-[#2564E5] uppercase tracking-widest border border-gray-200">
                                         {blog.category}
                                     </div>
                                 </Link>
@@ -97,7 +96,7 @@ const BlogsMain = () => {
 
                             {/* Content */}
                             <div className="p-8">
-                                <div className="flex items-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
+                                <div className="flex items-center gap-4 text-xs font-semibold text-gray-500 uppercase tracking-widest mb-4">
                                     <span className="flex items-center gap-1">
                                         <Calendar size={14} /> {blog.date}
                                     </span>
@@ -107,18 +106,18 @@ const BlogsMain = () => {
                                 </div>
 
                                 <Link href={`/blogs/${blog.slug}`}>
-                                    <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                    <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#2564E5] transition-colors line-clamp-2">
                                         {blog.title}
                                     </h2>
                                 </Link>
 
-                                <p className="text-slate-500 mb-6 line-clamp-3 leading-relaxed text-sm">
+                                <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed text-sm">
                                     {blog.excerpt}
                                 </p>
 
                                 <Link
                                     href={`/blogs/${blog.slug}`}
-                                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 uppercase tracking-widest group-hover:gap-4 transition-all"
+                                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#2564E5] uppercase tracking-widest group-hover:gap-4 transition-all"
                                 >
                                     Read Article <ArrowRight size={16} />
                                 </Link>
@@ -127,12 +126,12 @@ const BlogsMain = () => {
                     ))}
 
                     {/* Placeholder for when you have more posts */}
-                    {/* <div className="bg-slate-100 rounded-3xl flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-slate-200">
-                        <div className="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center mb-4 text-slate-400">
+                    {/* <div className="bg-gray-100 rounded-xl flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-gray-300">
+                        <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4 text-gray-400">
                             <Printer size={32} />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-500">More Coming Soon</h3>
-                        <p className="text-slate-400 text-sm mt-2">Stay tuned for more printing tips and reviews.</p>
+                        <h3 className="text-lg font-bold text-gray-500">More Coming Soon</h3>
+                        <p className="text-gray-400 text-sm mt-2">Stay tuned for more printing tips and reviews.</p>
                     </div> */}
                 </div>
             </div>
