@@ -1,5 +1,5 @@
 import React from "react";
-
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 const ShippingPolicy = () => (
   <section className="w-full bg-gray-50 min-h-screen py-16">
@@ -7,20 +7,19 @@ const ShippingPolicy = () => (
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">SHIPPING POLICY</h1>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Shipping Policy explains how Elite Print Care ("Company," "we," "our," or "us") processes, ships, and delivers orders placed through: www.eliteprintcare.com ("Website").<br/>By placing an order, you agree to the terms described in this Policy.</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Shipping Policy explains how Elite Print Care ("Company," "we," "our," or "us") processes, ships, and delivers orders placed through: <CompanyWebsiteLink className="text-blue-700" /> ("Website").<br/>By placing an order, you agree to the terms described in this Policy.</p>
       </div>
       <div className="space-y-10">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">1. Company Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a><br />
-            Elite Print Care operates exclusively as an online retail platform.
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" /><br />
+              Elite Print Care operates exclusively as an online retail platform.
+            </p>
+          </div>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">2. Order Processing</h2>
@@ -211,16 +210,13 @@ const ShippingPolicy = () => (
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">18. Contact Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            For shipping-related inquiries:<br />
-            Elite Print Care<br />
-            Shipping Department<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a>
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" />
+            </p>
+          </div>
         </div>
       </div>
     </div>

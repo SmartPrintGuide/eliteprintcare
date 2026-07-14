@@ -1,5 +1,6 @@
 import React from "react";
 import ReturnExchangeForm from "./ReturnExchangeForm";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 
 const ReturnExchangePolicy = () => (
@@ -8,20 +9,19 @@ const ReturnExchangePolicy = () => (
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">RETURN & REFUND POLICY</h1>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Return & Refund Policy describes the terms under which Elite Print Care ("Company," "we," "our," or "us") accepts returns and processes refunds for purchases made through: www.eliteprintcare.com ("Website").<br/>By placing an order on our Website, you agree to the conditions outlined in this Policy.</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Return & Refund Policy describes the terms under which Elite Print Care ("Company," "we," "our," or "us") accepts returns and processes refunds for purchases made through: <CompanyWebsiteLink className="text-blue-700" /> ("Website").<br/>By placing an order on our Website, you agree to the conditions outlined in this Policy.</p>
       </div>
       <div className="space-y-10">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">1. Company Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a><br />
-            Elite Print Care operates exclusively as an independent online retail platform.
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" /><br />
+              Elite Print Care operates exclusively as an independent online retail platform.
+            </p>
+          </div>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">2. 30-Day Return Eligibility Window</h2>
@@ -55,7 +55,7 @@ const ReturnExchangePolicy = () => (
           <h2 className="text-2xl font-semibold text-blue-700">5. Return Authorization (RMA) Process</h2>
           <p className="text-gray-600 leading-relaxed">To initiate a return:</p>
           <ul className="list-disc pl-6 text-gray-600">
-            <li>Email support@eliteprintcare.com</li>
+            <li>Email <CompanySupportEmail /></li>
             <li>Provide your order number</li>
             <li>State the reason for return</li>
             <li>Provide supporting photographs if applicable</li>
@@ -150,16 +150,13 @@ const ReturnExchangePolicy = () => (
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">18. Contact Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            For return-related inquiries:<br />
-            Elite Print Care<br />
-            Returns Department<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a>
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" />
+            </p>
+          </div>
         </div>
       </div>
     </div>

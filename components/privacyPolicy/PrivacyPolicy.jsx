@@ -1,4 +1,5 @@
 import React from "react";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 
 const PrivacyPolicy = () => (
@@ -7,20 +8,17 @@ const PrivacyPolicy = () => (
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">PRIVACY POLICY</h1>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Privacy Policy describes how Elite Print Care ("Company," "we," "our," or "us") collects, uses, discloses, safeguards, and processes personal information when you access or use: www.eliteprintcare.com ("Website").<br/>By accessing or using this Website, you acknowledge that you have read and understood this Privacy Policy.</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Privacy Policy describes how Elite Print Care ("Company," "we," "our," or "us") collects, uses, discloses, safeguards, and processes personal information when you access or use: <CompanyWebsiteLink className="text-blue-700" /> ("Website").<br/>By accessing or using this Website, you acknowledge that you have read and understood this Privacy Policy.</p>
       </div>
       <div className="space-y-10">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">1. Company Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a><br />
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock /><br />
+            Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+            Website: <CompanyWebsiteLink className="text-blue-700 underline" /><br />
             Elite Print Care operates as an independent online retail platform serving customers within the United States.
-          </p>
+          </div>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">2. Scope of This Policy</h2>
@@ -124,7 +122,7 @@ const PrivacyPolicy = () => (
             <li>Request deletion (subject to legal exceptions)</li>
             <li>Opt out of certain data sharing activities</li>
           </ul>
-          <p className="text-gray-600">To submit a privacy request:<br />📧 support@eliteprintcare.com<br />Subject: Privacy Request<br />Identity verification may be required.</p>
+          <p className="text-gray-600">To submit a privacy request:<br />📧 <CompanySupportEmail className="text-blue-700 underline" /><br />Subject: Privacy Request<br />Identity verification may be required.</p>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">9. California Privacy Rights (CCPA/CPRA)</h2>
@@ -164,14 +162,13 @@ const PrivacyPolicy = () => (
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">15. Contact Information</h2>
-          <p className="text-gray-600">
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a>
-          </p>
+          <div className="text-gray-600">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" />
+            </p>
+          </div>
         </div>
       </div>
     </div>

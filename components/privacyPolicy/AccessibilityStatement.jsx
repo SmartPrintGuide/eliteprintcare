@@ -1,5 +1,6 @@
 
 import React from "react";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 const AccessibilityStatement = () => (
   <section className="w-full bg-gray-50 min-h-screen py-16">
@@ -7,7 +8,7 @@ const AccessibilityStatement = () => (
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">ACCESSIBILITY STATEMENT</h1>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Elite Print Care is committed to ensuring digital accessibility for all users, including individuals with disabilities.<br/>This Accessibility Statement applies to:<br/><span className='text-blue-700'>www.eliteprintcare.com</span> ("Website")</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Elite Print Care is committed to ensuring digital accessibility for all users, including individuals with disabilities.<br/>This Accessibility Statement applies to:<br/><CompanyWebsiteLink className='text-blue-700' /> ("Website")</p>
         <p className="mt-2 text-gray-600 leading-relaxed">The Website is operated by Elite Print Care ("Company," "we," "our," or "us").</p>
       </div>
       <div className="space-y-10">
@@ -65,7 +66,7 @@ const AccessibilityStatement = () => (
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">6. Live Chat & Email Support</h2>
-          <p className="text-gray-600 leading-relaxed">Customers may contact us through:<br/>📧 support@eliteprintcare.com<br/>💬 Live Chat available on our Website<br/>We aim to respond within one business day.</p>
+          <p className="text-gray-600 leading-relaxed">Customers may contact us through:<br/>📧 <CompanySupportEmail className="text-blue-700 underline" /><br/>💬 Live Chat available on our Website<br/>We aim to respond within one business day.</p>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">7. Limitations</h2>
@@ -81,14 +82,13 @@ const AccessibilityStatement = () => (
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">10. Contact Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a>
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" />
+            </p>
+          </div>
         </div>
       </div>
     </div>

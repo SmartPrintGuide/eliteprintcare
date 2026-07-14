@@ -1,4 +1,5 @@
 import React from "react";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 const faqs = [
   {
@@ -7,7 +8,12 @@ const faqs = [
     questions: [
       {
         q: "How do I place an order?",
-        a: `Orders may be placed directly through our secure checkout system on www.eliteprintcare.com. After adding items to your cart, proceed to checkout and complete payment using one of our accepted payment methods.\nYou will receive an order confirmation email once your purchase is successfully processed.`
+        a: (
+          <span>
+            Orders may be placed directly through our secure checkout system on <CompanyWebsiteLink />. After adding items to your cart, proceed to checkout and complete payment using one of our accepted payment methods.<br />
+            You will receive an order confirmation email once your purchase is successfully processed.
+          </span>
+        )
       },
       {
         q: "When will my order be processed?",
@@ -116,15 +122,14 @@ export default function HelpCenter() {
       </p>
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <h2 className="text-xl font-bold text-blue-800 mb-2">Business Information</h2>
-        <p className="text-black">
-          Elite Print Care<br />
-          7181 Beacon Dr 15<br />
-          Reno, NV 89506<br />
-          United States<br />
-          Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-600 underline">support@eliteprintcare.com</a><br />
-          Website: <a href="https://www.eliteprintcare.com" className="text-blue-600 underline">www.eliteprintcare.com</a><br />
-          <span className="text-xs text-gray-500">Elite Print Care operates exclusively as an online retail platform.</span>
-        </p>
+        <div className="text-black">
+          <AddressBlock />
+          <p className="mt-3">
+            Email: <CompanySupportEmail className="text-blue-600 underline" /><br />
+            Website: <CompanyWebsiteLink className="text-blue-600 underline" /><br />
+            <span className="text-xs text-gray-500">Elite Print Care operates exclusively as an online retail platform.</span>
+          </p>
+        </div>
       </div>
       {faqs.map((section, idx) => (
         <div key={section.category} className="mb-8">
@@ -145,7 +150,7 @@ export default function HelpCenter() {
         <h2 className="text-lg font-bold text-blue-700 mb-2">Still Need Help?</h2>
         <p className="text-black mb-1">If your question is not answered here, please contact:</p>
         <ul className="list-disc list-inside text-black mb-2 pl-4">
-          <li>Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-600 underline">support@eliteprintcare.com</a></li>
+          <li>Email: <CompanySupportEmail className="text-blue-600 underline" /></li>
           <li>Live Chat: Use the chat feature on our website</li>
         </ul>
         <p className="text-xs text-gray-500">We are committed to providing structured and professional assistance.</p>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 const heroImage = "/assets/printer.png";
 
 const FAQContent = () => {
@@ -77,7 +78,11 @@ const FAQContent = () => {
         },
         {
           q: "How do I start a return?",
-          a: "Email us at support@eliteprintcare.com with your order number and return request. We will provide instructions and next steps."
+          a: (
+            <span>
+              Email us at <CompanySupportEmail /> with your order number and return request. We will provide instructions and next steps.
+            </span>
+          )
         },
         {
           q: "How long does it take to receive a refund?",
@@ -116,7 +121,11 @@ const FAQContent = () => {
         },
         {
           q: "How can I contact customer support?",
-          a: "You can reach us at: 📧 Email: support@eliteprintcare.com 🌐 Website: www.eliteprintcare.com"
+          a: (
+            <span>
+              You can reach us at: 📧 <CompanySupportEmail /> 🌐 <CompanyWebsiteLink />
+            </span>
+          )
         }
       ]
     }
@@ -195,14 +204,16 @@ const FAQContent = () => {
             Our support team is here to help with any questions or concerns.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-gray-700">
-            <div className="flex items-center">
-              <span className="mr-2 text-lg">📧</span>
-              <span className="font-medium">support@eliteprintcare.com</span>
+            <div className="flex items-center gap-3 justify-center">
+            <div className="flex items-center gap-2">
+              <span className="text-lg">📧</span>
+              <CompanySupportEmail className="font-medium" />
             </div>
-            <div className="flex items-center">
-              <span className="mr-2 text-lg">🌐</span>
-              <span className="font-medium">www.eliteprintcare.com</span>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">🌐</span>
+              <CompanyWebsiteLink className="font-medium" />
             </div>
+          </div>
           </div>
         </div>
 

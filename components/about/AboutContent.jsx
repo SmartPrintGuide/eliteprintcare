@@ -1,5 +1,6 @@
 
 import React from "react";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 const AboutContent = () => (
   <section className="w-full bg-white py-0">
@@ -24,7 +25,7 @@ const AboutContent = () => (
             Elite Print Care is an independent online retail platform specializing in printers, multifunction devices, and related printing technology solutions for customers throughout the United States.
           </p>
           <p className="text-gray-700 mb-2">
-            Our e-commerce platform, <a href="https://www.eliteprintcare.com" className="text-[#2564E5] underline">www.eliteprintcare.com</a>, is designed to provide structured product information, clearly defined purchasing policies, and secure transaction processes. We operate exclusively online and serve individuals, remote professionals, and small business customers nationwide.
+            Our e-commerce platform, <CompanyWebsiteLink className="text-[#2564E5] underline" />, is designed to provide structured product information, clearly defined purchasing policies, and secure transaction processes. We operate exclusively online and serve individuals, remote professionals, and small business customers nationwide.
           </p>
         </div>
         <div className="flex-1 flex justify-center">
@@ -150,7 +151,7 @@ const AboutContent = () => (
         </ul>
         <p className="text-gray-700">
           To contact us:<br/>
-          <a href="mailto:support@eliteprintcare.com" className="text-[#2564E5] underline">support@eliteprintcare.com</a><br/>
+          <CompanySupportEmail className="text-[#2564E5] underline" /><br/>
           We aim to respond within one business day.
         </p>
       </section>
@@ -173,14 +174,14 @@ const AboutContent = () => (
       {/* Contact Information */}
       <section className="bg-gray-50 rounded-xl border border-gray-200 p-8">
         <h2 className="text-2xl font-bold text-[#2564E5] mb-3">Contact Information</h2>
-        <p className="text-gray-700">
-          <span className="font-semibold text-[#2564E5]">Elite Print Care</span><br/>
-          7181 Beacon Dr 15<br/>
-          Reno, NV 89506<br/>
-          United States<br/>
-          Email: <a href="mailto:support@eliteprintcare.com" className="text-[#2564E5] underline">support@eliteprintcare.com</a><br/>
-          Website: <a href="https://www.eliteprintcare.com" className="text-[#2564E5] underline">www.eliteprintcare.com</a>
-        </p>
+        <div className="text-gray-700 space-y-2">
+          <span className="font-semibold text-[#2564E5]">Elite Print Care</span>
+          <AddressBlock />
+          <p>
+            Email: <CompanySupportEmail className="text-[#2564E5] underline" /><br />
+            Website: <CompanyWebsiteLink className="text-[#2564E5] underline" />
+          </p>
+        </div>
       </section>
     </div>
   </section>

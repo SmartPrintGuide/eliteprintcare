@@ -1,4 +1,5 @@
 import React from "react";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 const CCPAPrivacyPolicy = () => {
   return (
@@ -76,7 +77,7 @@ const CCPAPrivacyPolicy = () => {
               Even though we do not sell or share personal information, you may submit a request:
             </p>
             <p className="text-gray-600 leading-relaxed">
-              📧 Email: <a href="mailto:support@eliteprintcare.com" className="text-indigo-600 underline">support@eliteprintcare.com</a><br/>
+              📧 Email: <CompanySupportEmail className="text-indigo-600 underline" /><br/>
               Subject Line: CCPA Privacy Request
             </p>
             <p className="text-gray-600 leading-relaxed">
@@ -188,13 +189,13 @@ const CCPAPrivacyPolicy = () => {
           {/* 12. Contact Us Regarding Your Privacy Rights */}
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold text-gray-900">12. Contact Us Regarding Your Privacy Rights</h2>
-            <p className="text-gray-600 leading-relaxed">
-              Elite Print Care<br />
-              17807 Lakecrest View Drive, #1205<br />
-              Cypress, TX 77433, United States<br />
-              Email: <a href="mailto:support@eliteprintcare.com" className="text-indigo-600 underline">support@eliteprintcare.com</a><br />
-              Website: <a href="https://www.eliteprintcare.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline">www.eliteprintcare.com</a>
-            </p>
+            <div className="text-gray-600 leading-relaxed">
+              <AddressBlock />
+              <p className="mt-2">
+                Email: <CompanySupportEmail className="text-indigo-600 underline" /><br />
+                Website: <CompanyWebsiteLink className="text-indigo-600 underline" />
+              </p>
+            </div>
           </div>
 
         </div>

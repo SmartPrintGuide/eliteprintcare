@@ -1,4 +1,5 @@
 import React from "react";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink } from '../../lib/renderAddress';
 
 const ConsumerRights = () => (
   <section className="w-full bg-gray-50 min-h-screen py-16">
@@ -6,21 +7,20 @@ const ConsumerRights = () => (
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800">CONSUMER RIGHTS</h1>
         <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">Effective Date: July 14, 2026</p>
-        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Consumer Rights page explains the rights available to customers who purchase products from:<br/><span className='text-blue-700'>www.eliteprintcare.com</span> ("Website")</p>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">This Consumer Rights page explains the rights available to customers who purchase products from:<br/><CompanyWebsiteLink className='text-blue-700' /> ("Website")</p>
         <p className="mt-2 text-gray-600 leading-relaxed">The Website is operated by Elite Print Care ("Company," "we," "our," or "us").<br/>We are committed to operating in accordance with applicable U.S. consumer protection laws and maintaining transparent retail practices.</p>
       </div>
       <div className="space-y-10">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">1. Company Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a><br />
-            Elite Print Care operates exclusively as an independent online retail platform serving customers within the United States.
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" /><br />
+              Elite Print Care operates exclusively as an independent online retail platform serving customers within the United States.
+            </p>
+          </div>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">2. Right to Transparent Information</h2>
@@ -68,7 +68,7 @@ const ConsumerRights = () => (
             <li>Request correction of inaccurate data</li>
             <li>Opt out of sale or sharing of personal information</li>
           </ul>
-          <p className="text-gray-600 leading-relaxed">Elite Print Care does not sell personal information.<br/>To submit a privacy request:<br/>Email: <a href='mailto:support@eliteprintcare.com' className='text-blue-700 underline'>support@eliteprintcare.com</a><br/>Subject: California Privacy Request<br/>Identity verification may be required.</p>
+          <p className="text-gray-600 leading-relaxed">Elite Print Care does not sell personal information.<br/>To submit a privacy request:<br/>Email: <CompanySupportEmail className='text-blue-700 underline' /><br/>Subject: California Privacy Request<br/>Identity verification may be required.</p>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">9. Right to Non-Discrimination</h2>
@@ -96,15 +96,13 @@ const ConsumerRights = () => (
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-blue-700">15. Contact Information</h2>
-          <p className="text-gray-600 leading-relaxed">
-            For consumer rights inquiries:<br />
-            Elite Print Care<br />
-            7181 Beacon Dr 15<br />
-            Reno, NV 89506<br />
-            United States<br />
-            Email: <a href="mailto:support@eliteprintcare.com" className="text-blue-700 underline">support@eliteprintcare.com</a><br />
-            Website: <a href="https://www.eliteprintcare.com" className="text-blue-700 underline">www.eliteprintcare.com</a>
-          </p>
+          <div className="text-gray-600 leading-relaxed">
+            <AddressBlock />
+            <p className="mt-2">
+              Email: <CompanySupportEmail className="text-blue-700 underline" /><br />
+              Website: <CompanyWebsiteLink className="text-blue-700 underline" />
+            </p>
+          </div>
         </div>
       </div>
     </div>

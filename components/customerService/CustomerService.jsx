@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { AddressBlock, CompanyWebsiteLink } from "@/lib/renderAddress";
 
 const CustomerService = () => {
   const [name, setName] = useState("");
@@ -209,8 +210,10 @@ const CustomerService = () => {
           <p className="text-gray-700">Elite Print Care operates as an independent online retailer and is not affiliated with, endorsed by, or authorized by any printer manufacturer unless explicitly stated. Brand references are used solely for identification and compatibility purposes.</p>
         </div>
         <div className="bg-gray-50 rounded-xl border border-gray-200 p-8 space-y-4">
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-tight mb-2">Mailing Address for Correspondence</h2>
-          <p className="text-gray-700">Elite Print Care<br />7181 Beacon Dr 15<br />Reno, NV 89506<br />United States</p>
+          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-tight mb-2">Address</h2>
+          <div className="text-gray-700">
+            <AddressBlock />
+          </div>
         </div>
         {/* Website */}
         <div className="bg-white rounded-xl border border-gray-200 p-8 space-y-4 transition-all">
@@ -218,7 +221,7 @@ const CustomerService = () => {
             🌐 Website
           </h2>
           <p className="text-gray-700 font-medium">
-            <span className="text-[#2564E5] underline font-semibold">www.eliteprintcare.com</span><br />Browse our selection of printers, ink, toner, and printing essentials anytime.
+            <CompanyWebsiteLink className="text-[#2564E5] underline font-semibold" /><br />Browse our selection of printers, ink, toner, and printing essentials anytime.
           </p>
         </div>
         {/* How We Can Help */}

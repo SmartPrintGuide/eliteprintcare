@@ -60,12 +60,20 @@ const Header = () => {
     document.body.style.overflow = mobileOpen ? "hidden" : "unset";
   }, [mobileOpen]);
 
-  const isActive = (path) => pathname === path;
+  const printersPathActive = pathname.startsWith('/product-category/') && pathname !== '/product-category/ink-toner';
 
-      const handleSearchSubmit = (e) => {
+  const isActive = (path) => {
+    if (path === '/') return pathname === '/';
+    if (path === '/blogs') return pathname.startsWith('/blogs');
+    if (path === '/customer-service') return pathname.startsWith('/customer-service') || pathname.startsWith('/help-center');
+    if (path === '/product-category/ink-toner') return pathname === '/product-category/ink-toner';
+    return pathname === path;
+  };
+
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-          router.push(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
+      router.push(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
       setSearchOpen(false);
       setSearchTerm("");
       setSuggestions([]);
@@ -109,10 +117,10 @@ const Header = () => {
               <img
                 src="/spglogo.png"
                 alt="Elite Print Care Logo"
-                width="200"
-                height="74"
-                className="h-12 w-auto object-contain"
-                style={{ maxWidth: "200px" }}
+                width="240"
+                height="90"
+                className="h-16 w-auto object-contain"
+                style={{ maxWidth: "240px" }}
               />
             </Link>
 
@@ -128,7 +136,7 @@ const Header = () => {
                   >
                     <button
                       type="button"
-                      className="flex items-center gap-1 text-[#2564E5] hover:text-blue-700 transition font-semibold bg-transparent border-none outline-none cursor-pointer"
+                      className={`flex items-center gap-1 transition font-semibold bg-transparent border-none outline-none cursor-pointer ${printersPathActive ? 'text-[#2564E5]' : 'text-gray-700 hover:text-[#2564E5]'}`}
                     >
                       {item.name}
                       <ChevronDown size={16} />

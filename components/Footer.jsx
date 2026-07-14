@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { AddressBlock, CompanySupportEmail, CompanyWebsiteLink, CompanyName } from '../lib/renderAddress';
 
 const Footer = () => {
   return (
@@ -58,24 +59,17 @@ const Footer = () => {
           <h3 className="font-semibold text-lg mb-4 text-[#2564E5]">
             Get in Touch
           </h3>
-          <ul className="space-y-3 text-sm text-gray-600">
-            <li>
+          <div className="space-y-3 text-sm text-gray-600">
+            <div>
               Email:
               <br />
-              <a
-                href="mailto:support@eliteprintcare.com"
-                className="hover:text-[#2564E5] transition-colors"
-              >
-                support@eliteprintcare.com
-              </a>
-            </li>
-            <li>
-              7181 Beacon Dr 15 <br />
-              Reno, NV 89506 <br />
-              United States
-            </li>
-            <li>Support: Monday–Friday, 9am–6pm ET</li>
-          </ul>
+              <CompanySupportEmail className="hover:text-[#2564E5] transition-colors" />
+            </div>
+            <div className="space-y-1 text-gray-600">
+              <AddressBlock />
+            </div>
+            <div>Support: Monday–Friday, 9am–6pm ET</div>
+          </div>
         </div>
 
       </div>
@@ -86,17 +80,16 @@ const Footer = () => {
         <div className="font-semibold text-[#2564E5]">Elite Print Care</div>
         <div className="mb-4">All rights reserved.</div>
         {/* Legal/Disclaimer Content */}
-        <div className="w-full max-w-5xl mx-auto px-4 text-xs text-gray-500 text-center leading-relaxed">
-          <div className="mb-2">
-            <span className="font-semibold text-gray-700">Disclaimer:</span> Elite Print Care is an independent retailer based in Safety Harbor, Florida and is not affiliated with, endorsed by, or sponsored by HP Inc., Canon Inc., Epson America Inc., Brother Industries Ltd., Fujitsu Limited, TP-Link Technologies Co., ASUSTeK Computer Inc., DJI Technology Co., or any other manufacturer. All product images, logos, and trademarks are the property of their respective owners. Product images are used for informational purposes only under fair use guidelines.
-          </div>
-          <div className="mb-2">
-            HP, LaserJet, ScanJet, OfficeJet, and related trademarks are registered trademarks of HP Inc. Canon, PIXMA, and imageCLASS are trademarks of Canon Inc. Epson and EcoTank are trademarks of Seiko Epson Corporation. Brother is a trademark of Brother Industries Ltd. TP-Link and Archer are trademarks of TP-Link Technologies Co. ASUS and ROG are trademarks of ASUSTeK Computer Inc. DJI, Mavic, Mini, Air, and Avata are trademarks of DJI Technology Co. All other trademarks are the property of their respective owners.
-          </div>
-          <div className="mb-2">
-            All product information, specifications, pricing, and availability are subject to change without notice. We make every effort to ensure accuracy but cannot guarantee that all information is complete or error-free. Manufacturer warranties apply per brand terms. Please verify product details with the manufacturer before making a purchase decision. For questions, contact us at <a href="mailto:support@eliteprintcare.com" className="underline text-[#2564E5] hover:text-blue-700">support@eliteprintcare.com</a>.
-          </div>
-        </div>
+   <div className="w-full max-w-5xl mx-auto px-4 text-xs text-gray-500 text-center leading-relaxed">
+  <div className="mb-2">
+    <span className="font-semibold text-gray-700">Disclaimer:</span> Elite Print Care is an independent retailer and is not affiliated with or endorsed by HP, Canon, Epson, Brother, TP-Link, ASUS, DJI, or any other manufacturer. All trademarks, logos, and product images belong to their respective owners and are used for identification purposes only.
+  </div>
+
+  <div>
+    Product information and availability may change without notice. While we strive for accuracy, we cannot guarantee all details are error-free. For questions, contact us at{" "}
+    <CompanySupportEmail className="underline text-[#2564E5] hover:text-blue-700" />.
+  </div>
+</div>
       </div>
     </footer>
   );
