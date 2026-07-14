@@ -28,23 +28,28 @@ export default function ProductFilter({ filters, onChange }) {
   }, [filters]);
 
   const handleCheckbox = (field, value) => {
-    setLocalFilters(prev => {
+    setLocalFilters((prev) => {
       const arr = prev[field] || [];
       const newArr = arr.includes(value)
-        ? arr.filter(v => v !== value)
+        ? arr.filter((v) => v !== value)
         : [...arr, value];
       const updated = { ...prev, [field]: newArr };
-      onChange && onChange(updated);
       return updated;
     });
+
+    const current = localFilters;
+    const arr = current[field] || [];
+    const newArr = arr.includes(value)
+      ? arr.filter((v) => v !== value)
+      : [...arr, value];
+    const updated = { ...current, [field]: newArr };
+    onChange && onChange(updated);
   };
 
   const handleSelect = (field, value) => {
-    setLocalFilters(prev => {
-      const updated = { ...prev, [field]: value };
-      onChange && onChange(updated);
-      return updated;
-    });
+    const updated = { ...localFilters, [field]: value };
+    setLocalFilters(updated);
+    onChange && onChange(updated);
   };
 
   return (
