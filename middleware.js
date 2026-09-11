@@ -79,70 +79,14 @@ function applyRateLimit(request) {
   return null;
 }
 
-function logRequest(request, response) {
-  const timestamp = new Date().toISOString();
-  const ip = getClientIp(request);
-  const country = getCountry(request);
-  const method = request.method;
-  const pathname = request.nextUrl.pathname;
-  const route = request.nextUrl.pathname + request.nextUrl.search;
-  const status = response?.status || 0;
-
-  console.log(
-    JSON.stringify({
-      timestamp,
-      type: 'request-log',
-      method,
-      pathname,
-      route,
-      ip,
-      country,
-      userAgent: request.headers.get('user-agent') || 'unknown',
-      status,
-      headers: {
-        'x-forwarded-for': request.headers.get('x-forwarded-for') || 'unknown',
-        'x-real-ip': request.headers.get('x-real-ip') || 'unknown',
-        'cf-connecting-ip': request.headers.get('cf-connecting-ip') || 'unknown',
-      },
-    })
-  );
-}
-
-function shouldSkipRequestLogging(request) {
-  const pathname = request.nextUrl.pathname;
-
-  if (pathname.startsWith('/_next/') || pathname.startsWith('/api/')) {
-    return true;
-  }
-
-  const prefetchHeaders = [
-    request.headers.get('next-router-prefetch'),
-    request.headers.get('x-middleware-prefetch'),
-    request.headers.get('x-nextjs-data'),
-    request.headers.get('purpose'),
-  ];
-
-  return prefetchHeaders.some((value) => value === '1' || value === 'prefetch');
-}
-
 export async function middleware(request) {
-  const shouldSkipLogging = shouldSkipRequestLogging(request);
   const rateLimitedResponse = applyRateLimit(request);
 
   if (rateLimitedResponse) {
-    if (!shouldSkipLogging) {
-      logRequest(request, rateLimitedResponse);
-    }
     return rateLimitedResponse;
   }
 
-  const response = NextResponse.next();
-
-  if (!shouldSkipLogging) {
-    logRequest(request, response);
-  }
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
