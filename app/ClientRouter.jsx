@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Removed: Header, Footer, ScrollToTop are already rendered by layout.jsx
@@ -61,21 +61,6 @@ export default function ClientRouter() {
   const pathname = usePathname() || '/';
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  useEffect(() => {
-    const route = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
-    const lastLoggedRoute = sessionStorage.getItem('lastLoggedClientRoute');
-
-    if (lastLoggedRoute !== route) {
-      console.log(JSON.stringify({
-        timestamp: new Date().toISOString(),
-        type: 'frontend-route-change',
-        route,
-      }));
-
-      sessionStorage.setItem('lastLoggedClientRoute', route);
-    }
-  }, [pathname, searchParams]);
 
   // Simple pattern matching for dynamic routes
   if (pathname === '/') return renderWithShell(<HomeMain />);
