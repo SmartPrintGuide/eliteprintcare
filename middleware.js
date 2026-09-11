@@ -108,19 +108,43 @@ function logRequest(request, response) {
   );
 }
 
+function shouldSkipRequestLogging(request) {
+  const pathname = request.nextUrl.pathname;
+
+  if (pathname.startsWith('/_next/') || pathname.startsWith('/api/')) {
+    return true;
+  }
+
+  const prefetchHeaders = [
+    request.headers.get('next-router-prefetch'),
+    request.headers.get('x-middleware-prefetch'),
+    request.headers.get('x-nextjs-data'),
+    request.headers.get('purpose'),
+  ];
+
+  return prefetchHeaders.some((value) => value === '1' || value === 'prefetch');
+}
+
 export async function middleware(request) {
+  const shouldSkipLogging = shouldSkipRequestLogging(request);
   const rateLimitedResponse = applyRateLimit(request);
 
   if (rateLimitedResponse) {
-    logRequest(request, rateLimitedResponse);
+    if (!shouldSkipLogging) {
+      logRequest(request, rateLimitedResponse);
+    }
     return rateLimitedResponse;
   }
 
   const response = NextResponse.next();
-  logRequest(request, response);
+
+  if (!shouldSkipLogging) {
+    logRequest(request, response);
+  }
+
   return response;
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\.(?:png|jpg|jpeg|gif|svg|ico|webp|css|js|woff|woff2|ttf|map)$).*)'],
+  matcher: ['/((?!_next/|favicon.ico|.*\.(?:png|jpg|jpeg|gif|svg|ico|webp|css|js|woff|woff2|ttf|map)$).*)'],
 };
