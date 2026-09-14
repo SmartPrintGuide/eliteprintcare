@@ -19,6 +19,7 @@ export default function MainHero() {
   const [diagnosticStatus, setDiagnosticStatus] = useState("System Standby");
 
   const runQuickFix = () => {
+    setIsModalOpen(true);
     setIsDiagnosticRunning(true);
     setDiagnosticStatus("Scanning Spooler & Ports...");
     setTimeout(() => {
@@ -241,12 +242,10 @@ export default function MainHero() {
 
       </div>
 
-      {/* Printer Setup Modal Integration */}
+   
       <PrinterSetupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      {/* =====================================================
-          BOTTOM BORDER ACCENT
-      ====================================================== */}
+ 
       <div className="absolute bottom-0 left-0 right-0 h-px bg-[#E2E8F0]" />
 
     </section>

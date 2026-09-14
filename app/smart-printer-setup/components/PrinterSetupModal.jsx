@@ -21,15 +21,40 @@ import {
 } from "lucide-react";
 import { hpPrinterData } from "./printerModel";
 
-export default function PrinterSetupModal({ isOpen, onClose }) {
+export default function PrinterSetupModal({
+  isOpen,
+  onClose,
+  initialIssue = null,
+}) {
   const [step, setStep] = useState(1);
   const [selectedIssue, setSelectedIssue] = useState("");
   const [customModel, setCustomModel] = useState("");
-  
+
+  useEffect(() => {
+    if (isOpen && initialIssue) {
+      setSelectedIssue(initialIssue);
+      setStep(2);
+      return;
+    }
+
+    if (!isOpen) {
+      setStep(1);
+      setSelectedIssue("");
+      setCustomModel("");
+      setInstallState("idle");
+      setTerminalLogs([]);
+      setPrepProgress(0);
+      setPrepStageText("Preparing package manifest...");
+    }
+  }, [isOpen, initialIssue]);
+
   // Installation flow states: 'idle' | 'preparing' | 'installing' | 'error'
   const [installState, setInstallState] = useState("idle");
   const [terminalLogs, setTerminalLogs] = useState([]);
   const [prepProgress, setPrepProgress] = useState(0);
+  const [prepStageText, setPrepStageText] = useState(
+    "Preparing package manifest...",
+  );
 
   const terminalEndRef = useRef(null);
 
@@ -42,40 +67,57 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
 
   // Handle installation progression & realistic native installer simulation
   useEffect(() => {
-    let prepTimer, progressInterval, logInterval, errorTimer;
+    let prepTimer, progressInterval, logInterval;
 
     if (installState === "preparing") {
+      const prepStages = [
+        { percent: 0, label: "Preparing package manifest..." },
+        { percent: 15, label: "Downloading HP Smart package..." },
+        { percent: 40, label: "Verifying digital signature..." },
+        { percent: 50, label: "Extracting installer bundle..." },
+        { percent: 65, label: "Registering printer services..." },
+        { percent: 80, label: "Configuring printer drivers..." },
+        { percent: 99, label: "Finalizing secure installation..." },
+        { percent: 100, label: "Installation ready to launch..." },
+      ];
+
       setPrepProgress(0);
-      // Smooth progress bar simulation for the 3 seconds waiting state
+      setPrepStageText(prepStages[0].label);
+
+      let stageIndex = 0;
       progressInterval = setInterval(() => {
-        setPrepProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(progressInterval);
-            return 100;
-          }
-          return prev + 4;
-        });
-      }, 100);
+        stageIndex += 1;
+
+        if (stageIndex < prepStages.length) {
+          const nextStage = prepStages[stageIndex];
+          setPrepProgress(nextStage.percent);
+          setPrepStageText(nextStage.label);
+        } else {
+          clearInterval(progressInterval);
+          setPrepProgress(100);
+          setPrepStageText(prepStages[prepStages.length - 1].label);
+        }
+      }, 420);
 
       prepTimer = setTimeout(() => {
         setInstallState("installing");
-        setTerminalLogs([
-          `[00:00:01] INITIALIZING: HP Universal Device Enclave v14.2.0`,
-          `[00:00:02] DETECT: Target hardware signature resolved -> HP ${customModel || "DeskJet 2755e"}`,
-        ]);
-      }, 3000);
+        setTerminalLogs([]);
+      }, 420 * prepStages.length + 350);
     } else if (installState === "installing") {
       const realisticLogs = [
-        "CONNECT: Establishing secure TLS v1.3 socket tunnel to hpprint.com:443...",
-        "AUTH: Handshake successful. Verifying OAuth2 driver signing token...",
-        "DOWNLOAD: Fetching base_driver_package_x64.cab (139.9 MB)... [OK]",
-        "EXTRACT: Unpacking core printer spooler binaries to /Library/Printers/HP/",
-        "PATCH: Updating firmware registers to match architecture specifications...",
-        "DRIVER: Registering USB/Network PCL-3 universal interface controllers...",
-        "CONFIG: Writing device nodes to /etc/cups/printers.conf...",
-        "WARNING: Secure connection handshake delayed on port 443 (retrying packet sequence).",
-        "ERROR: Failed to fetch official cryptographic signature from remote repository.",
-        "CRITICAL_EXCEPTION: Driver installation interrupted by system security policy or file lock conflict.",
+        "[00:00:03] DOWNLOAD: 0% - Preparing secure download stream to hpprint.com:443...",
+        "[00:00:04] DOWNLOAD: 15% - Receiving base_driver_package_x64.cab (39.7 MB / 139.9 MB)...",
+        "[00:00:05] VERIFY: 40% - Validating package hashes and digital signatures...",
+        "[00:00:06] WARNING: Secure connection handshake delayed on port 443 (retrying packet sequence)...",
+        "[00:00:07] EXTRACT: 50% - Unpacking core printer spooler binaries to /Library/Printers/HP/",
+        "[00:00:08] PATCH: 65% - Updating firmware registers to match architecture specifications...",
+        "[00:00:09] DRIVER: 80% - Registering USB/Network PCL-3 universal interface controllers...",
+        "[00:00:10] CONFIG: 99% - Writing device nodes to /etc/cups/printers.conf...",
+        "[00:00:11] SUCCESS: 100% - Installation completed successfully. HP Smart is now ready for first use.",
+        "[00:00:12] WARNING: Background service health check detected a non-critical driver mismatch.",
+        "[00:00:13] ERROR: Failed to fetch official cryptographic signature from remote repository.",
+        "[00:00:14] ERROR: Driver installation interrupted by system security policy or file lock conflict.",
+        "[00:00:15] CRITICAL_EXCEPTION: HP Smart could not fully complete setup and is rolling back changes.",
       ];
 
       let currentIndex = 0;
@@ -84,20 +126,17 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
           const logItem = realisticLogs[currentIndex];
           setTerminalLogs((prev) => [...prev, logItem]);
           currentIndex++;
+        } else {
+          clearInterval(logInterval);
+          setInstallState("error");
         }
-      }, 850);
-
-      // Trigger error view after full sequence completion
-      errorTimer = setTimeout(() => {
-        setInstallState("error");
-      }, 10500);
+      }, 1000);
     }
 
     return () => {
       clearTimeout(prepTimer);
       clearInterval(progressInterval);
       clearInterval(logInterval);
-      clearTimeout(errorTimer);
     };
   }, [installState, customModel]);
 
@@ -110,6 +149,7 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
     setInstallState("idle");
     setTerminalLogs([]);
     setPrepProgress(0);
+    setPrepStageText("Preparing package manifest...");
   };
 
   const supportIssues = [
@@ -122,14 +162,13 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fadeIn">
       <div className="relative w-full max-w-xl bg-white rounded-2xl border border-slate-200/80 shadow-[0_24px_64px_rgba(15,23,42,0.2)] overflow-hidden flex flex-col max-h-[92vh]">
-        
         {/* Modal Header (Hidden during terminal execution for real native installer feel) */}
         {installState !== "installing" && (
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/80 backdrop-blur-sm">
             <div className="flex items-center gap-2.5">
               <div className="w-2.5 h-2.5 rounded-full bg-[#2563E5] animate-pulse shadow-sm shadow-[#2563E5]/50" />
               <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-600">
-                HP Assistant // Step {step} of 3
+                HP Assistant 
               </span>
             </div>
             <button
@@ -336,90 +375,143 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
                   </div>
                 </div>
               ) : installState === "preparing" ? (
-                /* Extremely realistic Native OS Setup Wizard preparation screen */
-                <div className="py-6 text-center animate-fadeIn">
-                  <div className="flex items-center justify-between mb-8 pb-3 border-b border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-400" />
-                      <div className="w-3 h-3 rounded-full bg-amber-400" />
-                      <div className="w-3 h-3 rounded-full bg-emerald-400" />
+                <div className="animate-fadeIn">
+                  <div className="mx-auto max-w-[620px] rounded-[32px] border border-slate-200 bg-[#f4f9ff] p-4 shadow-[0_35px_100px_rgba(15,23,42,0.18)]">
+                    <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="h-3 w-3 rounded-full bg-red-400" />
+                        <div className="h-3 w-3 rounded-full bg-amber-400" />
+                        <div className="h-3 w-3 rounded-full bg-emerald-400" />
+                      </div>
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-[0.24em] text-slate-500">
+                        HP Device Setup Assistant v14.2
+                      </span>
                     </div>
-                    <span className="text-xs font-mono text-slate-400">HP Device Setup Assistant v14.2</span>
-                  </div>
 
-                  <div className="w-16 h-16 rounded-2xl bg-blue-50 text-[#2563E5] flex items-center justify-center mx-auto mb-4 shadow-inner">
-                    <Loader2 size={32} className="animate-spin" />
-                  </div>
+                    <div className="px-3 pb-1 pt-8 text-center">
+                      <div className="mx-auto flex h-[110px] w-[110px] items-center justify-center rounded-[30px] bg-gradient-to-br from-[#edf7ff] via-[#d9eeff] to-[#cfe4fb] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-4 ring-blue-100">
+                        <div className="flex h-[64px] w-[64px] items-center justify-center rounded-[22px] bg-white/85 shadow-[0_8px_24px_rgba(37,99,229,0.12)]">
+                          <Loader2
+                            size={34}
+                            className="animate-spin text-[#2563E5]"
+                          />
+                        </div>
+                      </div>
 
-                  <h4 className="text-lg font-extrabold text-[#0F172A] tracking-tight mb-1">
-                    Wait... we are installing it
-                  </h4>
-                  <p className="text-xs text-slate-500 font-mono mb-6">
-                    Configuring secure channels for HP {customModel}...
-                  </p>
+                      <h4 className="mt-6 text-[28px] font-extrabold tracking-[-0.05em] text-[#0F172A]">
+                        Wait... we are installing it
+                      </h4>
 
-                  {/* Native OS Progress Bar */}
-                  <div className="w-full bg-slate-100 rounded-full h-2.5 mb-3 overflow-hidden border border-slate-200">
-                    <div
-                      className="bg-[#2563E5] h-2.5 rounded-full transition-all duration-150 ease-out"
-                      style={{ width: `${prepProgress}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between items-center text-[10px] font-mono text-slate-400">
-                    <span>Preparing package manifest...</span>
-                    <span>{prepProgress}%</span>
+                      <p className="mt-3 text-sm font-medium text-slate-500">
+                        Configuring secure channels for HP{" "}
+                        <span className="font-semibold text-slate-700">
+                          {customModel}
+                        </span>
+                        ...
+                      </p>
+
+                      <div className="mt-8 rounded-[22px] border border-slate-200 bg-white/85 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
+                        <div className="mb-3 flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-slate-400">
+                          <span>{prepStageText}</span>
+                          <span>{prepProgress}%</span>
+                        </div>
+
+                        <div className="h-3 w-full overflow-hidden rounded-full border border-slate-200 bg-slate-200/80 shadow-inner">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-[#7dbaff] via-[#2c6ce6] to-[#184eb7] transition-all duration-150 ease-out"
+                            style={{ width: `${prepProgress}%` }}
+                          />
+                        </div>
+
+                        <div className="mt-4 grid grid-cols-3 gap-3">
+                          <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-left">
+                            <div className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-slate-400">
+                              Status
+                            </div>
+                            <div className="mt-1 text-sm font-bold text-slate-800">
+                              Secure
+                            </div>
+                          </div>
+                          <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-left">
+                            <div className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-slate-400">
+                              Driver
+                            </div>
+                            <div className="mt-1 text-sm font-bold text-slate-800">
+                              Verified
+                            </div>
+                          </div>
+                          <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-left">
+                            <div className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-slate-400">
+                              Network
+                            </div>
+                            <div className="mt-1 text-sm font-bold text-slate-800">
+                              Ready
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : installState === "installing" ? (
-                /* Native Terminal Window with bottom-up scrolling stream & red error text */
-                <div className="flex flex-col h-[380px] -m-2 sm:-m-4 bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
-                  
-                  {/* Terminal Window Title Bar */}
-                  <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                      <span className="text-xs font-mono font-medium text-slate-300 ml-2">
-                        hp-installer-daemon — bash — 80x24
+                <div className="animate-fadeIn">
+                  <div className="mx-auto flex h-[430px] w-full max-w-[800px] flex-col overflow-hidden rounded-[30px] border border-slate-800 bg-[#07131d] shadow-[0_32px_120px_rgba(2,9,17,0.7)]">
+                    <div className="flex items-center justify-between border-b border-slate-800 bg-[#111f2c] px-4 py-2.5">
+                      <div className="flex items-center gap-2">
+                        <div className="h-3 w-3 rounded-full bg-rose-500/90" />
+                        <div className="h-3 w-3 rounded-full bg-amber-500/90" />
+                        <div className="h-3 w-3 rounded-full bg-emerald-500/90" />
+                        <span className="ml-2 text-xs font-mono font-medium tracking-[0.12em] text-slate-300">
+                          hp-installer-daemon — bash — 80x24
+                        </span>
+                      </div>
+
+                      <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-amber-300 animate-pulse">
+                        <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                        Running
                       </span>
                     </div>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30 animate-pulse">
-                      ● RUNNING
-                    </span>
-                  </div>
 
-                  {/* Terminal Scrollable Logs Body */}
-                  <div className="flex-1 p-4 font-mono text-xs overflow-y-auto space-y-2.5 flex flex-col">
-                    <div className="text-slate-500 pb-1 border-b border-slate-900 text-[11px]">
-                      Last login: {new Date().toLocaleDateString()} on ttys002
-                    </div>
-                    {terminalLogs.map((log, index) => (
-                      <div
-                        key={index}
-                        className={`leading-relaxed tracking-wide ${
-                          log.includes("ERROR") || log.includes("CRITICAL")
-                            ? "text-red-500 font-bold bg-red-950/60 px-2 py-1 rounded border border-red-900/50 shadow-xs"
-                            : log.includes("WARNING")
-                            ? "text-amber-400"
-                            : "text-emerald-400"
-                        }`}
-                      >
-                        <span className="text-slate-600 mr-2 select-none">{">"}</span>
-                        {log}
+                    <div className="flex-1 overflow-y-auto bg-[#07131d] p-4 font-mono text-xs text-emerald-300">
+                      <div className="border-b border-slate-800/80 pb-2 text-[11px] text-slate-500">
+                        Last login: {new Date().toLocaleDateString()} on ttys002
                       </div>
-                    ))}
-                    {/* Auto-scroll anchor target */}
-                    <div ref={terminalEndRef} />
-                  </div>
 
-                  {/* Terminal Footer status */}
-                  <div className="px-4 py-2 bg-slate-900/80 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                    <span>Target: HP {customModel}</span>
-                    <span className="flex items-center gap-1.5 text-emerald-400">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      Executing system scripts
-                    </span>
+                      <div className="mt-3 space-y-2.5">
+                        {terminalLogs.map((log, index) => (
+                          <div
+                            key={index}
+                            className={`flex items-start gap-2 leading-relaxed tracking-wide ${
+                              log.includes("ERROR") || log.includes("CRITICAL")
+                                ? "rounded-md border border-red-500/30 bg-red-950/60 px-2 py-1 text-red-400"
+                                : log.includes("WARNING")
+                                  ? "text-amber-300"
+                                  : "text-emerald-300"
+                            }`}
+                          >
+                            <span className="select-none text-slate-600">
+                              &gt;
+                            </span>
+                            <span>{log}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-4 flex items-center gap-2 text-emerald-300">
+                        <span className="select-none text-slate-600">&gt;</span>
+                        <span className="inline-block h-4 w-2 animate-pulse bg-emerald-300" />
+                      </div>
+
+                      <div ref={terminalEndRef} />
+                    </div>
+
+                    <div className="flex items-center justify-between border-t border-slate-800 bg-[#0d1b29] px-4 py-2 text-[10px] font-mono text-slate-400">
+                      <span>Target: HP {customModel}</span>
+                      <span className="flex items-center gap-1.5 text-emerald-300">
+                        <span className="h-2 w-2 animate-ping rounded-full bg-emerald-400" />
+                        Executing system scripts
+                      </span>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -432,7 +524,8 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
                     Installation Interrupted
                   </h4>
                   <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4">
-                    We encountered a signature or driver conflict while configuring your HP {customModel}.
+                    We encountered a signature or driver conflict while
+                    configuring your HP {customModel}.
                   </p>
 
                   <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 max-w-xs mx-auto mb-6 text-center">
@@ -446,7 +539,9 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
 
                   <button
                     onClick={() => {
-                      alert("Connecting you securely to live HP support expert...");
+                      alert(
+                        "Connecting you securely to live HP support expert...",
+                      );
                     }}
                     className="w-full py-4 rounded-xl bg-[#2563E5] hover:bg-[#1D55C7] text-white font-semibold text-sm transition-all shadow-xl shadow-[#2563E5]/25 flex items-center justify-center gap-2.5 cursor-pointer mb-3"
                   >
@@ -454,11 +549,8 @@ export default function PrinterSetupModal({ isOpen, onClose }) {
                     <span>Chat Now with Support Expert</span>
                   </button>
 
-                  <button
-                    onClick={() => setInstallState("idle")}
-                    className="text-xs text-slate-400 hover:text-slate-700 underline font-mono cursor-pointer transition-colors"
-                  >
-                    ← Try installation again
+                  <button className="text-sm text-slate-500 hover:text-slate-800 cursor-pointer transition-colors">
+                    Don’t reinstall — it may affect your system
                   </button>
                 </div>
               )}
