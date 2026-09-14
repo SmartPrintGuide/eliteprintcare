@@ -1,414 +1,254 @@
+// components/MainHero.jsx
 "use client";
 
-import React, { useEffect, useState } from "react";
-
-const printerImages = [
-  {
-    src: "./slide-1.png",
-    alt: "Printer setup",
-  },
-  {
-    src: "./slide-2.png",
-    alt: "Printer support",
-  },
-];
-
-const services = [
-  {
-    title: (
-      <>
-        New Printer
-        <br />
-        Setup
-      </>
-    ),
-    description: "Set up your printer quickly and start printing with confidence.",
-    icon: (
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 64 64"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="17" y="7" width="30" height="17" rx="4" />
-        <path d="M17 24H11C8.8 24 7 25.8 7 28v17h10" />
-        <path d="M47 24h6c2.2 0 4 1.8 4 4v17H47" />
-        <rect x="17" y="39" width="30" height="18" rx="2" />
-        <path d="M23 45h12" />
-        <circle cx="45" cy="45" r="8" fill="white" />
-        <path d="m41 45 3 3 6-7" />
-      </svg>
-    ),
-  },
-  {
-    title: (
-      <>
-        Printer Showing
-        <br />
-        Offline
-      </>
-    ),
-    description: "Reconnect your printer and restore communication in minutes.",
-    icon: (
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 64 64"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="17" y="7" width="30" height="17" rx="4" />
-        <path d="M17 24H11C8.8 24 7 25.8 7 28v17h10" />
-        <path d="M47 24h6c2.2 0 4 1.8 4 4v17H47" />
-        <rect x="17" y="39" width="30" height="18" rx="2" />
-        <path d="M24 45h9" />
-        <circle cx="47" cy="45" r="9" fill="white" />
-        <path d="M47 40v6" />
-        <circle cx="47" cy="49" r="1" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    title: (
-      <>
-        Connect Printer
-        <br />
-        to WiFi
-      </>
-    ),
-    description: "Join your printer to the right wireless network without hassle.",
-    icon: (
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 64 64"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 25c11-11 29-11 40 0" />
-        <path d="M19 32c7-7 19-7 26 0" />
-        <path d="M27 39c3-3 7-3 10 0" />
-        <path d="M32 43v13" />
-        <circle cx="32" cy="43" r="3" />
-      </svg>
-    ),
-  },
-  {
-    title: (
-      <>
-        Printer Not
-        <br />
-        Printing
-      </>
-    ),
-    description: "Troubleshoot print jobs, queues, and connection issues fast.",
-    icon: (
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 64 64"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M18 7h21l11 11v39H18z" />
-        <path d="M39 7v12h11" />
-        <circle cx="44" cy="45" r="10" fill="white" />
-        <path d="m38 39 12 12" />
-        <path d="m50 39-12 12" />
-      </svg>
-    ),
-  },
-  {
-    title: (
-      <>
-        Install Printer
-        <br />
-        Driver
-      </>
-    ),
-    description: "Download the correct software and keep your printer running smoothly.",
-    icon: (
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 64 64"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="17" y="7" width="30" height="17" rx="4" />
-        <path d="M17 24H11C8.8 24 7 25.8 7 28v17h10" />
-        <path d="M47 24h6c2.2 0 4 1.8 4 4v17H47" />
-        <rect x="17" y="39" width="30" height="18" rx="2" />
-        <path d="M24 45h10" />
-        <circle cx="45" cy="45" r="8" fill="white" />
-        <path d="M45 40v10" />
-        <path d="m41 47 4 4 4-4" />
-      </svg>
-    ),
-  },
-  {
-    title: (
-      <>
-        Scanner Not
-        <br />
-        Working
-      </>
-    ),
-    description: "Fix scan errors and get your scanner back online quickly.",
-    icon: (
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 64 64"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M18 7h21l11 11v39H18z" />
-        <path d="M39 7v12h11" />
-        <path d="M18 22H7v35h11" strokeDasharray="4 3" />
-        <circle cx="44" cy="45" r="10" fill="white" />
-        <path d="m38 39 12 12" />
-        <path d="m50 39-12 12" />
-      </svg>
-    ),
-  },
-];
+import React, { useState } from "react";
+import {
+  ArrowUpRight,
+  Check,
+  Printer,
+  Wifi,
+  Settings,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
+import PrinterSetupModal from "./PrinterSetupModal";
 
 export default function MainHero() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDiagnosticRunning, setIsDiagnosticRunning] = useState(false);
+  const [diagnosticStatus, setDiagnosticStatus] = useState("System Standby");
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev === printerImages.length - 1 ? 0 : prev + 1
-    );
+  const runQuickFix = () => {
+    setIsDiagnosticRunning(true);
+    setDiagnosticStatus("Scanning Spooler & Ports...");
+    setTimeout(() => {
+      setDiagnosticStatus("All Systems Fully Optimized");
+      setIsDiagnosticRunning(false);
+    }, 1800);
   };
-
-  const previousSlide = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? printerImages.length - 1 : prev - 1
-    );
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) =>
-        prev === printerImages.length - 1 ? 0 : prev + 1
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-blue-50/60 via-white to-white font-sans antialiased text-slate-800">
-      
-      {/* Decorative background glow matching your original styling */}
-      <div className="absolute top-0 right-0 -z-10 h-[500px] w-full max-w-4xl bg-gradient-to-bl from-blue-400/25 via-blue-200/10 to-transparent rounded-bl-[120px] pointer-events-none" />
+    <section className="relative min-h-[calc(100vh-72px)] overflow-hidden bg-[#F8FAFC] text-[#0F172A]">
 
-      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-6 md:py-16 lg:px-8">
+      {/* =====================================================
+          SUBTLE TECHNICAL BACKGROUND
+      ====================================================== */}
+      <div className="pointer-events-none absolute inset-0">
+        {/* Core lighting glow */}
+        <div className="absolute left-1/2 top-[30%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563E5]/[0.03] blur-3xl" />
         
-        {/* ================= HERO TOP ================= */}
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        {/* Engineering grid lines */}
+        <div className="absolute inset-0 bg-[radial-gradient(#2563E5_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.02]" />
 
-          {/* ================= LEFT CONTENT (Preserved Exactly) ================= */}
-          <div className="lg:col-span-6 flex flex-col items-start">
+        {/* Architectural border brackets */}
+        <div className="absolute left-[8%] top-[15%] hidden h-24 w-24 border-l border-t border-[#CBD5E1]/60 lg:block" />
+        <div className="absolute bottom-[12%] right-[8%] hidden h-24 w-24 border-b border-r border-[#CBD5E1]/60 lg:block" />
 
-            {/* Badge Pill */}
-            <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-blue-200 bg-white px-4 py-1.5 shadow-xs">
-              <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-              <span className="text-xs font-bold tracking-wide text-blue-700">
-                Smart Printer Setup Support
+        {/* Precise alignment dots */}
+        <div className="absolute left-[12%] top-[40%] h-1.5 w-1.5 rounded-full bg-[#2563E5]/50 animate-pulse" />
+        <div className="absolute right-[13%] top-[28%] h-1.5 w-1.5 rounded-full bg-[#2563E5]/50 animate-pulse" />
+      </div>
+
+      {/* =====================================================
+          HERO CONTENT CONTAINER
+      ====================================================== */}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-72px)] max-w-[1340px] items-center justify-center px-6 py-20 lg:py-28">
+
+        <div className="relative w-full text-center">
+
+          {/* =====================================================
+              FLOATING CARD — LEFT TOP (Live Hardware Detection)
+          ===================================================== */}
+          <div className="absolute -left-4 top-[4%] hidden -rotate-2 lg:block transition-all hover:rotate-0 duration-300">
+            <div className="w-[210px] border border-[#E2E8F0] bg-white/90 backdrop-blur-sm p-4 text-left shadow-[0_16px_40px_rgba(15,23,42,0.08)] rounded-sm">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#EEF4FF] text-[#2563E5]">
+                  <Printer size={15} />
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-emerald-50 text-[10px] font-mono font-semibold text-emerald-700 border border-emerald-200/60">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                  ONLINE
+                </span>
+              </div>
+              <p className="text-[12px] font-bold text-[#0F172A] tracking-tight">
+                CoreLink Series-8
+              </p>
+              <p className="mt-0.5 text-[10px] text-slate-500 font-mono">
+                IP: 192.168.1.104 • Secure
+              </p>
+            </div>
+          </div>
+
+          {/* =====================================================
+              FLOATING CARD — RIGHT TOP (Wi-Fi Protocol Status)
+          ===================================================== */}
+          <div className="absolute -right-4 top-[10%] hidden rotate-2 lg:block transition-all hover:rotate-0 duration-300">
+            <div className="w-[200px] border border-[#E2E8F0] bg-white/90 backdrop-blur-sm p-4 text-left shadow-[0_16px_40px_rgba(15,23,42,0.08)] rounded-sm">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-[#EEF4FF] text-[#2563E5]">
+                  <Wifi size={15} />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold text-[#0F172A]">
+                    5GHz Network
+                  </p>
+                  <div className="mt-0.5 flex items-center gap-1.5 font-mono">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    <span className="text-[10px] text-slate-500">
+                      Signal: 98% Optimal
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* =====================================================
+              MAIN CENTERED EDITORIAL COMPOSITION
+          ===================================================== */}
+          <div className="mx-auto max-w-[880px]">
+
+            {/* Interactive Mode Filter Badge */}
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#DCE5F2] bg-white/80 backdrop-blur-sm px-4 py-1.5 shadow-2xs">
+              <span className="h-2 w-2 rounded-full bg-[#2563E5] animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#475569]">
+                PRINTER SETUP & SUPPORT PLATFORM
               </span>
             </div>
 
-            {/* Heading */}
-            <h1 className="text-4xl font-black tracking-tight text-slate-900 sm:text-5xl lg:text-6xl leading-[1.08]">
-              Simple printer setup,
-              <span className="block text-blue-600 mt-1">
-                fast fixes, and expert help.
+            {/* High-Impact Master Headline */}
+            <h1 className="text-[clamp(3.2rem,7.5vw,6.8rem)] font-extrabold leading-[0.92] tracking-[-0.07em] text-[#0F172A]">
+              Printer setup,
+              <span className="block text-[#2563E5] mt-1">
+                made effortless.
               </span>
             </h1>
 
-            {/* Description */}
-            <p className="mt-6 text-base leading-relaxed text-slate-600 max-w-xl">
-              Get clear guidance for printer installation, Wi‑Fi setup, software downloads, and everyday troubleshooting. Everything is organized so you can move from setup to success without confusion.
-            </p>
-            
-            <p className="mt-3 text-sm leading-relaxed text-slate-500 max-w-xl">
-              Choose the support path you need, follow the simple steps, and reach out to our team when you want extra help with your device.
+            {/* Polished Value Proposition Subcopy */}
+            <p className="mx-auto mt-7 max-w-[580px] text-[16px] leading-relaxed text-[#475569] sm:text-[18px] font-normal">
+              Connect wireless hardware, install companion software, and clear spooler errors instantly with professional step-by-step guidance.
             </p>
 
-            {/* CTA Button */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="/find-model"
-                className="inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-[#0F53FF] px-8 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 active:scale-95"
+            {/* Primary Action Button Group */}
+            <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="group inline-flex items-center gap-3 rounded-sm bg-[#2563E5] px-8 py-4 text-[14px] font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#1D55C7] cursor-pointer"
               >
-                Start Printer Setup
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </a>
-
-              <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700">
-                <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
-                Setup support available
-              </div>
-            </div>
-
-          </div>
-
-          {/* ================= RIGHT CAROUSEL / VISUAL ================= */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-blue-100 bg-gradient-to-br from-blue-500/10 via-blue-400/5 to-blue-600/20 p-3 sm:p-4 shadow-2xl shadow-blue-600/10">
-              
-              <div className="relative overflow-hidden rounded-[2rem] bg-white aspect-[16/10] flex items-center justify-center shadow-inner">
-                <img
-                  key={currentIndex}
-                  src={printerImages[currentIndex].src}
-                  alt={printerImages[currentIndex].alt}
-                  className="max-h-[80%] w-auto max-w-[85%] object-contain transition-all duration-700 hover:scale-105"
+                <span>Start Printer Setup</span>
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                 />
+              </button>
 
-                {/* Counter Badge */}
-                <div className="absolute top-4 right-4 rounded-full border border-slate-200/80 bg-white/90 backdrop-blur-md px-3 py-1 shadow-sm">
-                  <span className="text-xs font-bold text-slate-800">
-                    {String(currentIndex + 1).padStart(2, "0")}
-                  </span>
-                  <span className="mx-1 text-slate-300">/</span>
-                  <span className="text-xs text-slate-500">
-                    {String(printerImages.length).padStart(2, "0")}
-                  </span>
+              <button
+                onClick={runQuickFix}
+                disabled={isDiagnosticRunning}
+                className="inline-flex items-center gap-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-200 px-7 py-4 text-[14px] font-semibold text-[#0F172A] shadow-2xs transition-all duration-200 cursor-pointer"
+              >
+                <Zap size={15} className="text-[#2563E5]" />
+                <span>{isDiagnosticRunning ? diagnosticStatus : "Run Quick Diagnostic"}</span>
+              </button>
+            </div>
+
+            {/* Live Interactive Terminal Pill Feed */}
+            <div className="mt-12 mx-auto max-w-[620px] bg-slate-900 text-slate-200 p-4 rounded-sm border border-slate-800 shadow-xl font-mono text-left">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-[11px]">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-slate-400 tracking-wider uppercase">DAEMON_STATUS // SECURE_LINK</span>
                 </div>
-
-                {/* Navigation Arrows */}
-                <button
-                  type="button"
-                  onClick={previousSlide}
-                  aria-label="Previous printer"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 shadow-md transition hover:bg-blue-600 hover:text-white hover:border-blue-600"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m15 18-6-6 6-6" />
-                  </svg>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={nextSlide}
-                  aria-label="Next printer"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 shadow-md transition hover:bg-blue-600 hover:text-white hover:border-blue-600"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </button>
+                <span className="text-emerald-400 bg-emerald-950/80 px-2 py-0.5 border border-emerald-800/40 rounded-xs">
+                  {diagnosticStatus}
+                </span>
               </div>
-
-              {/* Bottom Carousel Bar inside container */}
-              <div className="mt-3 flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur-md border border-blue-100 px-5 py-3.5 shadow-sm">
-                <div>
-                  <p className="text-xs font-bold text-slate-900">
-                    Elite Print Care Support
-                  </p>
-                  <p className="text-[11px] text-slate-500 font-medium">
-                    Setup • Drivers • Wi‑Fi • Troubleshooting
-                  </p>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  {printerImages.map((_, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => setCurrentIndex(index)}
-                      aria-label={`Go to slide ${index + 1}`}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        currentIndex === index
-                          ? "w-6 bg-blue-600"
-                          : "w-2 bg-slate-300"
-                      }`}
-                    />
-                  ))}
-                </div>
+              <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between text-[12px] gap-2">
+                <span className="text-slate-300 flex items-center gap-2">
+                  <ShieldCheck size={14} className="text-[#2563E5]" />
+                  SSL Handshake Verified & Driver Signatures Matched
+                </span>
+                <span className="text-slate-400">100% Ready</span>
               </div>
+            </div>
 
+          </div>
+
+          {/* =====================================================
+              FLOATING CARD — LEFT BOTTOM (Driver Support)
+          ===================================================== */}
+          <div className="absolute -left-4 bottom-[6%] hidden rotate-1 lg:block transition-all hover:rotate-0 duration-300">
+            <div className="flex w-[220px] items-center gap-3.5 border border-[#E2E8F0] bg-white/90 backdrop-blur-sm p-4 text-left shadow-[0_16px_40px_rgba(15,23,42,0.08)] rounded-sm">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[#EEF4FF] text-[#2563E5]">
+                <Settings size={16} />
+              </div>
+              <div>
+                <p className="text-[12px] font-bold text-[#0F172A]">
+                  Driver Package v4.2
+                </p>
+                <p className="mt-0.5 text-[10px] text-slate-500 font-mono">
+                  Universal signed installer
+                </p>
+              </div>
             </div>
           </div>
 
-        </div>
-
-        {/* =========================================================
-            SIX SERVICE CARDS SECTION (Using your custom detailed SVG icons & layout)
-        ========================================================= */}
-        <div className="mt-20">
-          
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-            {services.map((service, index) => (
-              <a
-                key={index}
-                href="/find-model"
-                className="group flex flex-col items-center justify-between rounded-2xl border border-slate-200/80 bg-white p-6 text-center shadow-lg shadow-slate-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-600 hover:shadow-xl hover:shadow-blue-600/10"
-              >
-                <div>
-                  {/* Icon Container */}
-                  <div className="mb-5 flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white shadow-xs">
-                    {service.icon}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xs font-bold leading-snug text-slate-900 group-hover:text-blue-600 transition">
-                    {service.title}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <p className="mt-4 text-[11px] leading-relaxed text-slate-500 font-medium border-t border-slate-100 pt-3 w-full">
-                  {service.description}
+          {/* =====================================================
+              FLOATING CARD — RIGHT BOTTOM (Ready Status)
+          ===================================================== */}
+          <div className="absolute -right-4 bottom-[8%] hidden -rotate-1 lg:block transition-all hover:rotate-0 duration-300">
+            <div className="flex w-[210px] items-center gap-3.5 border border-[#E2E8F0] bg-white/90 backdrop-blur-sm p-4 text-left shadow-[0_16px_40px_rgba(15,23,42,0.08)] rounded-sm">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[#2563E5] text-white">
+                <Check size={16} />
+              </div>
+              <div>
+                <p className="text-[12px] font-bold text-[#0F172A]">
+                  Ready to Print
                 </p>
-              </a>
-            ))}
+                <p className="mt-0.5 text-[10px] text-slate-500 font-mono">
+                  Zero configuration errors
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* =======================================================
-              HELP MESSAGE BANNER
-          ======================================================== */}
-          <div className="mt-12 rounded-2xl border border-red-100 bg-red-50/50 p-6 text-center shadow-xs">
-            <p className="text-xs sm:text-sm font-semibold leading-relaxed text-red-600 max-w-4xl mx-auto">
-              <span className="font-bold underline mr-1">Need help?</span> Talk to our support team for printer setup, Wi‑Fi issues, offline problems, print failures, and other common device concerns.
-            </p>
+          {/* =====================================================
+              BOTTOM SYSTEM NAVIGATION BADGES
+          ===================================================== */}
+          <div className="mt-20 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[#64748B]">
+            <span className="flex items-center gap-2 hover:text-[#2563E5] transition-colors cursor-pointer">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#2563E5]" />
+              Setup
+            </span>
+            <span className="hidden sm:inline h-1 w-1 rounded-full bg-[#CBD5E1]" />
+            <span className="flex items-center gap-2 hover:text-[#2563E5] transition-colors cursor-pointer">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#2563E5]" />
+              Drivers
+            </span>
+            <span className="hidden sm:inline h-1 w-1 rounded-full bg-[#CBD5E1]" />
+            <span className="flex items-center gap-2 hover:text-[#2563E5] transition-colors cursor-pointer">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#2563E5]" />
+              Connectivity
+            </span>
+            <span className="hidden sm:inline h-1 w-1 rounded-full bg-[#CBD5E1]" />
+            <span className="flex items-center gap-2 hover:text-[#2563E5] transition-colors cursor-pointer">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#2563E5]" />
+              Support
+            </span>
           </div>
 
         </div>
 
       </div>
+
+      {/* Printer Setup Modal Integration */}
+      <PrinterSetupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      {/* =====================================================
+          BOTTOM BORDER ACCENT
+      ====================================================== */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#E2E8F0]" />
+
     </section>
   );
 }
