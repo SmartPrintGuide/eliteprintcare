@@ -12,6 +12,8 @@ const navItems = [
   { id: "business", label: "Business Support" },
 ];
 
+const mobileNavItems = navItems.slice(0, 3);
+
 export default function SupportHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -175,7 +177,9 @@ export default function SupportHeader() {
         ================================= */}
         <div className="border-t border-[#1D55C7] bg-[#2563E5] text-white">
           <div className="mx-auto max-w-[1340px] overflow-x-auto px-5 scrollbar-none sm:px-6 lg:px-8">
-            <div className="flex h-11 items-center gap-6 whitespace-nowrap text-[11px] font-semibold">
+
+            {/* Desktop nav */}
+            <div className="hidden h-11 items-center gap-6 whitespace-nowrap text-[11px] font-semibold md:flex">
 
               {/* Home */}
               <button
@@ -195,6 +199,38 @@ export default function SupportHeader() {
               </button>
 
               {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToSection(item.id)}
+                  className="relative h-full shrink-0 text-white/90 transition hover:text-white"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile nav */}
+            <div className="flex h-11 items-center gap-3 whitespace-nowrap text-[11px] font-semibold md:hidden">
+
+              {/* Home */}
+              <button
+                type="button"
+                onClick={() => scrollToSection("/")}
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm bg-white/10 transition hover:bg-white/20"
+                aria-label="Home"
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+              </button>
+
+              {mobileNavItems.map((item) => (
                 <button
                   key={item.id}
                   type="button"
